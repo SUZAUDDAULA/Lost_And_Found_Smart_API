@@ -1,0 +1,290 @@
+﻿@model LostAndFoundMasterDataViewModel
+@{
+    ViewData["Title"] = "GD Information Report";
+}
+<table>
+    <caption>@Model.Lang.title</caption>
+    <tbody>
+        <tr>
+            <td>User Name</td>
+            <td>:</td>
+            <td>@Model.applicationUser?.FullName</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<div class="card">
+
+    <div class="card-header">
+        <h5 class="font-weight-bold" style="color: black">@Model.Lang.title</h5>
+        
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">User Name <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.applicationUser?.FullName</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.gDInformation.gDType.gdTypeName <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.gDInformation.productType?.productTypeName</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">Tracking Number <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.gDInformation.gdNumber</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">Date <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.gDInformation.gdDate?.ToString("dd/MM/yyyy")</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    @if (Model.gDInformation.gdFor == "2")
+                    {
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-4" style="text-align:right">@Model.otherPersonInformation?.nationalIdentityType?.nationalIdentityName <span>&nbsp; :</span></label>
+                            <div class="col-md-8">
+                                <span>@Model.otherPersonInformation?.identityNo</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.mobile <span>&nbsp; :</span></label>
+                            <div class="col-md-8">
+                                <span>@Model.otherPersonInformation?.mobileNo</span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.entryFor <span>&nbsp; :</span></label>
+                            <div class="col-md-8">
+                                <span>My Self</span>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div style="height:10px;"></div>
+<div class="card">
+
+    <div class="card-header">
+        <h5 class="font-weight-bold" style="color: black">@Model.Lang.detailsTitle</h5>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.vehiclesType <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.vehicleInformation?.vehicleType?.vehicleTypeName</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.model <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.vehicleInformation?.modelNo</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.engineNumber <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.vehicleInformation?.engineNo</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.cc <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.vehicleInformation?.ccNo</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.countryOfMaking <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.vehicleInformation?.madeIn</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.brandName <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.vehicleInformation?.madeBy</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.registrationNo <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.vehicleInformation?.regNoFirstPart, @Model.vehicleInformation?.regNoSecondPart - @Model.vehicleInformation?.regNoThiredPart</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.chassisNo <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.vehicleInformation?.chasisNo</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.yearOfMaking <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.vehicleInformation?.mfcDate?.ToString("dd/MM/yyyy")</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div style="height:10px;"></div>
+<div class="card">
+
+    <div class="card-header">
+        <h5 class="font-weight-bold" style="color: black">@Model.Lang.documentTitle</h5>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.color <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.indentifyInfo?.colors?.colorName</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.file <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <img src="/@Model.indentifyInfo?.attachmentPath" width="100" height="80" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.documentType <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.gDInformation?.documentType?.documentTypeName?</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.identifyingMark <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.indentifyInfo?.identifySign</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div style="height:10px;"></div>
+<div class="card">
+
+    <div class="card-header">
+        <h5 class="font-weight-bold" style="color: black">@Model.Lang.placeDetails</h5>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.division <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.spaceAndTime?.division?.divisionName</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.distric <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.spaceAndTime?.district?.districtName</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.dateAndTime <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.spaceAndTime?.lafDate</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.placeDetails <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.spaceAndTime?.placeDetails</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.thana <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.spaceAndTime?.thana?.shortName</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">@Model.Lang.village <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.spaceAndTime?.postOffice?.postalName</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4" style="text-align:right">Time <span>&nbsp; :</span></label>
+                        <div class="col-md-8">
+                            <span>@Model.spaceAndTime?.lafTime</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<br /><br /><hr />
+

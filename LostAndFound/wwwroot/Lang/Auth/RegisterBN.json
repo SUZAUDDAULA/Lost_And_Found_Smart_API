@@ -1,0 +1,15 @@
+﻿{
+  "fullName": "পুরো নাম",
+  "citizenship": "নাগরিকতা",
+  "nationalIdentityType": "জাতীয় পরিচয়ের ধরণ",
+  "nationalIdentityNo": "জাতীয় পরিচয়পত্র নং",
+  "addressType": "জাতীয় পরিচয়ের মতো ঠিকানা?",
+  "imagePath": "ছবি",
+  "phoneNumber": "ফোন নম্বর",
+  "email": "ইমেইল",
+  "password": "পাসওয়ার্ড",
+  "confirmPassword": "পাসওয়ার্ড নিশ্চিত করুন",
+  "registrationForm": "নিবন্ধন ফর্ম",
+  "yes": "হ্যাঁ",
+  "no": "না"
+}

@@ -1,0 +1,96 @@
+﻿@model NavbarViewModel
+
+<link href="~/css/sb-admin-2.min.css" rel="stylesheet" />
+
+<script src="~/js/sb-admin-2.min.js"></script>
+<script type="text/javascript">
+    var value = document.cookie;
+    var lang = value.slice(5, 8);
+    if (lang == 'bn') {
+        $('#dashboard').text('ড্যাশবোর্ড');
+    } else {
+        $('#dashboard').text('Home');
+    }
+</script>
+
+
+<ul class="navbar-nav sidebar sidebar-dark accordion" style="font-weight: bolder; background:#004577;" id="accordionSidebar">
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard #30994c -->
+
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Home" asp-action="Index">
+            <i class="fas fa-fw fa-home"></i>
+            <span style="color:white;" id="dashboard">Dashboard</span>
+        </a>
+    </li>
+
+    @{
+        int clps = 1;
+        foreach (var item in Model.ERPModules)
+        {
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_@clps" aria-expanded="true" aria-controls="collapse_@clps">
+                    <i class="@item.imageClass"></i>
+                    <span style="color:white;">@item.moduleName</span>
+                </a>
+
+                <div id="collapse_@clps" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="py-2 collapse-inner rounded" style="background: #dcdfe5;">
+                        @foreach (var itemchid in Model.navbars.Where(x => x.moduleId == item.Id && x.parentID == 0))
+                        {
+                            @if (itemchid.isParent == 0)
+                            {
+                                <a class="collapse-item" onclick="LocalSet(@itemchid.moduleId,@itemchid.Id)" href="@Url.Action("GridMenuPage", "Home", new { moduleId = @itemchid.moduleId, perentId = @itemchid.Id  })">
+                                    @itemchid.nameOption
+                                </a>
+                                @*<a class="collapse-item" asp-area="@itemchid.area" asp-controller="@itemchid.controller" asp-action="@itemchid.action">@itemchid.nameOption</a>*@
+                            }
+                        }
+                    </div>
+                </div>
+
+            </li>
+            clps = clps + 1;
+        }
+    }
+
+    @*@foreach (var item in Model.Where(e => e.isParent == true && e.parentID != 0))
+        {
+            <li style="border-right:1px solid #c4c0c0;height:40px">
+                <a href="@Url.Action(item.action,item.controller)">
+                    <i class="@item.imageClass"></i>
+                    <span style="color:#786c6c;font-weight:bold;height:40px;">@item.nameOption</span>
+                </a>
+            </li>
+        }*@
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+</ul>
+
+<script type="text/javascript">
+    function LocalSet(modelId, parentId) {
+        window.localStorage.setItem("modelId", modelId);
+        window.localStorage.setItem("parentId", parentId);
+    }
+
+    $(document).ready(function () {
+        $("#HomeIcon").prop('href', '/');
+
+    });
+
+    //function navItemHoverEffect(id) {
+
+    //    $('#'+ id).css('background-color', 'green');
+    //}
+
+</script>
+
+
+

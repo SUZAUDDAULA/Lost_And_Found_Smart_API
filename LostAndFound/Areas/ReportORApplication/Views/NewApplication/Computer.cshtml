@@ -1,0 +1,768 @@
+﻿
+@model LostAndFoundMasterDataViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .circle {
+        height: 80px;
+        width: 80px;
+        /*background-image: url(/images/vehicleimage2.png);*/
+        border-radius: 50%;
+    }
+
+    [type=radio] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+    }
+
+        /* IMAGE STYLES */
+        [type=radio] + img {
+            cursor: pointer;
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+        }
+
+        /* CHECKED STYLES */
+        [type=radio]:checked + img {
+            outline: 2px solid #f00;
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+        }
+
+    .top-right {
+        position: absolute;
+        top: -20px;
+        left: 15px;
+    }
+
+    .container1 {
+        position: relative;
+        text-align: center;
+        color: black;
+    }
+</style>
+<br />
+<section>
+    <div class="container">
+
+        <form id="myForm" asp-area="ReportORApplication" asp-controller="NewApplication" asp-action="Index" method="post" enctype="multipart/form-data">
+            <div id="div_productType">
+                <div class="card">
+
+                    <div class="card-header">
+                        <h5 class="font-weight-bold" style="color: black">Type of @Model.gdTypeName Object</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <input type="hidden" id="productTypeId" value="3" />
+                                <input type="hidden" id="gDTypeId" name="gDTypeId" value="@Model.gdTypeId" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<br />
+                    <button type="button" onclick="basicInfoBtnFun()" id="basicInfo_btn_id" class="btn btn-success float-right">@Model.Lang.nextBtn</button>*@
+            </div>
+            <div class="accordion" id="accordionExample">
+                <div id="live_stock_info_div_id">
+
+                    <div class="card">
+                        <div class="card-header btn" id="headingLifestock" data-toggle="collapse" data-target="#collapseLifestock" aria-expanded="true" aria-controls="collapseLifestock" style="cursor:pointer">
+                            <h5 class="mb-0 text-left">
+                                <button class="btn btn-link" type="button">
+                                    Computer Information
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseLifestock" class="collapse show" aria-labelledby="headingLifestock" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">@Model.Lang.type<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="type" id="type">
+                                                        <option value="">select One</option>
+                                                        <option value="Desktop">Desktop</option>
+                                                        <option value="Laptop">Laptop</option>
+                                                        <option value="Hybrid">Hybrid</option>
+                                                        <option value="Omni">Omni</option>
+                                                        <option value="Note Book">Note Book</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">Brands<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="" id="">
+                                                        <option value="0">select One</option>
+                                                        @foreach (var data in Model.documentCategoryBrands)
+                                                        {
+                                                            <option value="@data.Id">@data.brandName</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">Model <span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="Model" id="Model" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">Service Tag/Serial Number<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="Tag" id="Tag" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">EMC product ID <span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="EMC" id="EMC" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">Product Number/Express Service Core<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="Express" id="Express" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">Price<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <input type="number" name="Price" id="Price" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-11 col-md-11 col-sm-12">
+
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 col-sm-12">
+                                            <div class="form-group row">
+                                                <button type="button" class="btn btn-sm btn-danger" style="float:right">@Model.Lang.nextBtn</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    @*<button type="button" class="btn btn-success float-right" id="liveStock_btn_id" onclick="liveStockBtnFun()">@Model.Lang.nextBtn</button>*@
+                </div>
+
+                <div id="div_identify">
+                    <div class="card">
+                        <div class="card-header collapsed" id="areaIdentify" data-toggle="collapse" data-target="#collapseIdentify" aria-expanded="false" aria-controls="collapseIdentify" style="cursor:pointer">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" type="button">
+                                    @Model.Lang.identifyingInformation
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseIdentify" class="collapse" aria-labelledby="areaIdentify" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">@Model.Lang.color<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="colorsId" id="colorsId">
+                                                        <option value="0">select color</option>
+                                                        @foreach (var item in Model.Colors)
+                                                        {
+                                                            <option value="@item.Id">@item.colorName</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">Image<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <input type="file" name="formFile" id="attachmentPath" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-2">@Model.Lang.identifyingMark<span style="color: red">*</span></label>
+                                                <div class="col-md-10">
+                                                    <textarea class="form-control" name="identifySign" id="identifySign" rows="4"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-11 col-md-11 col-sm-12">
+
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 col-sm-12">
+                                            <div class="form-group row">
+                                                <button type="button" class="btn btn-sm btn-danger" style="float:right">@Model.Lang.nextBtn</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="location_and_time_info_div_id">
+                    <div class="card">
+                        <div class="card-header collapsed" id="areaPlaceAndTime" data-toggle="collapse" data-target="#collapsePlaceAndTime" aria-expanded="false" aria-controls="collapsePlaceAndTime" style="cursor:pointer">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" type="button">
+                                    @Model.Lang.dateTimeTitle
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapsePlaceAndTime" class="collapse" aria-labelledby="areaPlaceAndTime" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">@Model.Lang.division<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="divisionId" id="division_id" onchange="divisionChangeFun()">
+                                                        <option value="0">select division</option>
+                                                        @foreach (var item in Model.Divisions)
+                                                        {
+                                                            <option value="@item.Id">@item.divisionName</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">@Model.Lang.distric<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="districtId" id="distric_id" onchange="districChangeFun()"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">@Model.Lang.thana<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="thanaId" id="thana_id"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">@Model.Lang.village<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" name="postOfficeId" id="post_office_id"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">@Model.Lang.dateAndTime<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <input type="date" name="lafDate" id="lafDate" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">@Model.Lang.dateAndTime<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <input type="time" name="lafTime" id="lafTime" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-4">@Model.Lang.placeDetails<span style="color: red">*</span></label>
+                                                <div class="col-md-8">
+                                                    <textarea class="form-control" name="placeDetails" rows="4"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="basic_info_div_id">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <h5 class="font-weight-bold" style="color: black">Entry For</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input chkOP" checked="checked" id="mySelf" name="entryFor" value="1">
+                                        <label class="custom-control-label" for="mySelf">My Self</label>
+                                    </div>
+
+                                    <!-- Default inline 2-->
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input chkOP" id="otherPerson" name="entryFor" value="2">
+                                        <label class="custom-control-label" for="otherPerson">Other Person</label>
+                                    </div>
+
+                                    <input type="hidden" id="gdFor" name="gdFor" />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    @*<br />
+                        <button type="button" onclick="basicInfoBtnFun()" id="basicInfo_btn_id" class="btn btn-success float-right">@Model.Lang.nextBtn</button>*@
+                </div>
+
+                <div id="person_info_div_id" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="font-weight-bold" style="color: black">@Model.Lang.personTitle</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-4">@Model.Lang.documentType<span style="color: red">*</span></label>
+                                            <div class="col-md-8">
+                                                <select class="form-control" name="nationalIdentityTypeId" id="person_doc_type_id">
+                                                    <option value="0">select document type</option>
+                                                    @foreach (var item in Model.DocumentTypes)
+                                                    {
+                                                        <option value="@item.Id">@item.documentTypeName</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-4">@Model.Lang.number<span style="color: red">*</span></label>
+                                            <div class="col-md-8">
+                                                <input type="text" name="identityNo" id="doc_type_number_id" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-4">@Model.Lang.mobile<span style="color: red">*</span></label>
+                                            <div class="col-md-8">
+                                                <input type="text" name="mobileNo" id="mobile_number_id" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <button type="submit" class="btn btn-success float-right"><i class="fa fa-save"></i></button>
+                <br />
+            </div>
+
+        </form>
+
+    </div>
+</section>
+<br /><br /><hr />
+
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#modelDate').datepicker({ uiLibrary: 'bootstrap4' });
+            $('#lafDate').datepicker({ uiLibrary: 'bootstrap4' });
+            $('#gdFor').val("1");
+        });
+
+        $(document).on("click", "input[name = 'entryFor']", function (e) {
+            var entryFor = parseInt($(this).val());
+            $('#gdFor').val(entryFor);
+            if (entryFor == 2) {
+                $("#person_info_div_id").css("display", "block");
+            } else {
+                $("#person_info_div_id").css("display", "none");
+
+                $("#person_doc_type_id").val(0);
+                $("#doc_type_number_id").val('');
+                $("#mobile_number_id").val('');
+                $("#person_mobile_id").val(0);
+            }
+
+        });
+
+        //$(document).on("click", "input[name = 'productType']", function (e) {
+        //    var productType = $(this).val();
+        //    $("input.chkPT").not(this).prop('checked', false);
+        //    if ($(this).is(":checked")) {
+        //        $('#productTypeId').attr('name', 'productTypeId').val(productType);
+        //    } else {
+        //        $('#productTypeId').removeAttr('name').val('');
+        //    }
+
+        //    if (productType == 1) {
+
+        //        $("#vehicale_info_div_id").css("display", "block");
+        //        $("#div_identify").css("display", "block");
+        //        $("#location_and_time_info_div_id").css("display", "block");
+
+        //        $("#document_info_div_id").css("display", "none");
+        //        $("#man_info_div_id").css("display", "none");
+        //        $("#live_stock_info_div_id").css("display", "none");
+        //        $("#basic_info_div_id").css("display", "block");
+        //    }
+        //    else if (productType == 2) {
+        //        $("#document_info_div_id").css("display", "block");
+        //        $("#location_and_time_info_div_id").css("display", "block");
+        //        $("#vehicale_info_div_id").css("display", "none");
+        //        $("#man_info_div_id").css("display", "none");
+        //        $("#live_stock_info_div_id").css("display", "none");
+        //        $("#basic_info_div_id").css("display", "block");
+        //    }
+        //    else if (productType == 3) {
+        //        $("#live_stock_info_div_id").css("display", "block");
+        //        $("#location_and_time_info_div_id").css("display", "block");
+        //        $("#man_info_div_id").css("display", "none");
+        //        $("#document_info_div_id").css("display", "none");
+        //        $("#vehicale_info_div_id").css("display", "none");
+        //        $("#basic_info_div_id").css("display", "block");
+        //    }
+        //    else if (productType == 4) {
+
+        //        $("#man_info_div_id").css("display", "block");
+        //        $("#location_and_time_info_div_id").css("display", "block");
+        //        $("#document_info_div_id").css("display", "none");
+        //        $("#vehicale_info_div_id").css("display", "none");
+        //        $("#live_stock_info_div_id").css("display", "none");
+        //        $("#basic_info_div_id").css("display", "block");
+        //    }
+        //    else if (productType == 5) {
+        //        $("#location_and_time_info_div_id").css("display", "block");
+        //        $("#basic_info_div_id").css("display", "block");
+        //    }
+
+        //});
+
+        function getVehicleModel() {
+            var thisVal = parseInt($('#vehicleTypeId').val());
+
+            if (thisVal==0) {
+                swal('Attention!!', 'Please Select Vehicle Name');
+                return false;
+            }
+            Common.Ajax('GET', '/api/VehicleInformation/GetVehicleModelByVehicleId/' + thisVal, [], 'json', loadVehicleModel);
+        }
+
+        function loadVehicleModel(res) {
+            $('#madeBy').empty();
+            $('#madeBy').append('<option value="">Select Model</option');
+
+            $.each(res, function (i, e) {
+                $('#madeBy').append('<option value="' + e.modelName + '">' + e.modelName + '</option');
+            });
+        }
+
+        function fnNextArea(id) {
+            if (id == 'v1') {
+                $('#collapseVehicle').removeClass('show');
+                $('#collapseDocumentInfo').addClass('show');
+            }
+        }
+
+        function divisionChangeFun() {
+
+            var id = $("#division_id option:selected").val();
+
+           $.ajax({
+                url: "/api/AddressMaster/GetDistrictByDivisionId/" + id,
+                type: "get",
+                success: function(res) {
+                    LoadDisctric(res);
+                }
+            });
+        }
+
+        function LoadDisctric(res) {
+
+            $('#distric_id').append('<option value="">Select District</option');
+
+            $.each(res, function (i, e) {
+                $('#distric_id').append('<option value="' + e.Id + '">' + e.districtName + '</option');
+            });
+        }
+
+        function districChangeFun() {
+
+            var id = $("#distric_id option:selected").val();
+
+            $.ajax({
+                url: "/api/AddressMaster/GetThanaByDistrictId/" + id,
+                type: "get",
+                success: function(res) {
+                    LoadThana(res);
+                }
+            });
+
+        }
+
+        function LoadThana(res) {
+
+            $('#thana_id').append('<option value="">Select Thana</option');
+
+            $.each(res, function (i, e) {
+                $('#thana_id').append('<option value="' + e.Id + '">' + e.thanaName + '</option');
+            });
+
+            PostOfficeLoadFun();
+        }
+
+        function PostOfficeLoadFun() {
+
+            var id = $("#distric_id option:selected").val();
+
+            $.ajax({
+                url: "/api/AddressMaster/GetPostOfficeByDistrictId/" + id,
+                type: "get",
+                success: function(res) {
+                    LoadPostOffice(res);
+                }
+            });
+        }
+
+        function LoadPostOffice(res) {
+
+            $('#post_office_id').append('<option value="">Select Post Office</option');
+
+            $.each(res, function (i, e) {
+                $('#post_office_id').append('<option value="' + e.Id + '">' + e.postalName + '</option');
+            });
+        }
+
+        function entryForChangeFun() {
+
+           var entryFor =  $("#entryFor option:selected").val();
+
+            if (entryFor == 2) {
+
+                $("#person_info_div_id").css("display", "block");
+            } else {
+                $("#person_info_div_id").css("display", "none");
+
+                $("#person_doc_type_id").val(0);
+                $("#doc_type_number_id").val('');
+                $("#mobile_number_id").val('');
+                $("#person_mobile_id").val(0);
+            }
+        }
+
+        function productTypeChangeFun() {
+
+            var productType = $("#productType option:selected").val();
+
+            if (productType == 1) {
+
+                $("#vehicale_info_div_id").css("display", "block");
+
+                $("#document_info_div_id").css("display", "none");
+                $("#man_info_div_id").css("display", "none");
+                $("#live_stock_info_div_id").css("display", "none");
+
+            }
+            else if (productType == 2) {
+                $("#document_info_div_id").css("display", "block");
+
+                $("#vehicale_info_div_id").css("display", "none");
+                $("#man_info_div_id").css("display", "none");
+                $("#live_stock_info_div_id").css("display", "none");
+
+            }
+            else if (productType == 3) {
+                $("#live_stock_info_div_id").css("display", "block");
+
+                $("#man_info_div_id").css("display", "none");
+                $("#document_info_div_id").css("display", "none");
+                $("#vehicale_info_div_id").css("display", "none");
+
+            }
+            else if (productType == 4) {
+
+                $("#man_info_div_id").css("display", "block");
+
+                $("#document_info_div_id").css("display", "none");
+                $("#vehicale_info_div_id").css("display", "none");
+                $("#live_stock_info_div_id").css("display", "none");
+
+            }
+            else if (productType == 5) {
+
+            }
+        }
+
+        //function basicInfoBtnFun() {
+
+        //    var entryFor = $("#entryFor option:selected").val();
+        //    var productType = $("#productType option:selected").val();
+
+        //    if (entryFor > 0 || productType > 1) {
+
+        //        if (entryFor == 2) {
+
+        //            $("#person_info_div_id").css("display", "block");
+        //        }
+
+        //        if (productType == 1) {
+
+        //            $("#vehicale_info_div_id").css("display", "block");
+        //            $("#basicInfo_btn_id").css("display", "none");
+        //        }
+        //        else if (productType == 2) {
+        //            $("#document_info_div_id").css("display", "block");
+        //            $("#basicInfo_btn_id").css("display", "none");
+        //        }
+        //        else if (productType == 3) {
+        //            $("#man_info_div_id").css("display", "block");
+        //            $("#basicInfo_btn_id").css("display", "none");
+        //        }
+        //        else if (productType == 4) {
+        //            $("#live_stock_info_div_id").css("display", "block");
+        //            $("#basicInfo_btn_id").css("display", "none");
+        //        }
+        //        else if (productType == 5) {
+
+        //        }
+
+        //    } else {
+        //        swal({
+        //            title: 'Invalid Input',
+        //            text: 'Please select Entry For and Product Type!',
+        //            type: 'warning', confirmButtonColor: '#3085d6',
+        //            confirmButtonText: 'OK!'
+        //        });
+        //    }
+        //}
+
+        function vehicaleBtnFun() {
+
+            $("#location_and_time_info_div_id").css("display", "block");
+            $("#vehicale_btn_id").css("display", "none");
+        }
+
+        function documentBtnFun() {
+
+            $("#location_and_time_info_div_id").css("display", "block");
+            $("#document_btn_id").css("display", "none");
+        }
+
+        function liveStockBtnFun() {
+
+            $("#location_and_time_info_div_id").css("display", "block");
+            $("#liveStock_btn_id").css("display", "none");
+        }
+
+        function manBtnFun() {
+
+            $("#location_and_time_info_div_id").css("display", "block");
+            $("#man_btn_id").css("display", "none");
+        }
+
+        function submitFun() {
+
+            var allTrx = new Object();
+            allTrx.gdFor = "own";
+            allTrx.productTypeId = 1;
+            allTrx.gDTypeId = 2;
+            allTrx.documentTypeId = 2;
+            allTrx.documentDescription = "ad";
+            $.ajax({
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("SaveGDManInformation", "NewApplication", "http")',
+                type: "post",
+                data: allTrx,
+                success: function(res) {
+
+                    alert("done");
+
+                    //$.ajax({
+                    //    url: "/ReportORApplication/NewApplication/" + res.redirectPageNo,
+                    //    type: "get",
+                    //    data: { id: res.entryFor },
+                    //    success: function(res) {
+
+                    //    }
+
+                    //});
+
+                    //window.location.href =
+                    //    "/ReportORApplication/NewApplication/" + res.redirectPageNo + "?" + res.entryFor;
+
+                }
+            });
+        }
+
+    </script>
+}

@@ -1,0 +1,8 @@
+{
+  "animalName": "Animal Name",
+  "title": "Animal Entry",
+  "listTitle": "Animal List",
+  "submitButton": "Save",
+  "refreshButton": "Refresh",
+  "action": "Action"
+}

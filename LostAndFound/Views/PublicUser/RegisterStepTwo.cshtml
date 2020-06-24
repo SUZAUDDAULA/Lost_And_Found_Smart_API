@@ -1,0 +1,210 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link href="~/SweetAlert/sweetalert2.css" rel="stylesheet" />
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+
+        .input-container {
+            display: -ms-flexbox; /* IE10 */
+            display: flex;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .icon {
+            padding: 10px;
+            background: #FF5722;
+            color: white;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            outline: none;
+        }
+
+            .input-field:focus {
+                border: 2px solid #FF5722;
+            }
+
+
+        /* Set a style for the submit button */
+        body {
+            background: url('/images/background_03.jpg');
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .p_5_cls {
+            /*padding-left: 3rem !important;*/
+            padding-right: 5rem !important;
+            padding-bottom: 3rem !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-2 px-0 mx-0">
+                <div style="height:170px;"></div>
+                <img id="UserImage" height="150" width="120" style="border-radius:50%;border-style:solid;border-width:1px;float:right" class="img-circle" />
+            </div>
+            <div class="col-xl-6 col-lg-12 col-md-7">
+                <div class="o-hidden border-0" style="background: none">
+                    <div class="p-0">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="p_5_cls">
+                                    <div class="text-center">
+                                        <img src="~/images/app.png" style="margin: 0px 0px 10px 0px;" height="160" width="260" />
+                                        @*<h5 style="color: black; margin-bottom: 12px; font-weight: 700;">WELCOME TO LOST AND FOUND!!</h5>*@
+                                    </div>
+
+                                    <div class="container">
+                                        <form asp-area="Auth" asp-controller="Account" asp-action="Register" method="post" enctype="multipart/form-data">
+
+                                            <input type="hidden" name="FullName" id="FullName" value="@Model.FullName" />
+                                            <input type="hidden" name="Citizenship" id="Citizenship" value="@Model.Citizenship" />
+                                            <input type="hidden" name="NationalIdentityType" id="NationalIdentityType" value="@Model.NationalIdentityType" />
+                                            <input type="hidden" name="NationalIdentityNo" id="NationalIdentityNo" value="@Model.NationalIdentityNo" />
+                                            <input type="hidden" name="PhoneNumber" id="PhoneNumber" value="@Model.PhoneNumber" />
+                                            <input type="hidden" name="PassportNo" id="PassportNo" value="@Model.PassportNo" />
+
+                                            <div class="form-group row">
+                                                <input type="text" name="Email" id="Email" class="form-control" placeholder="enter email address" />
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" name="formFile" id="formFile" />
+                                                    <label class="custom-file-label" id="fileSelectLabel">chosee photo...</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+
+                                                <select class="form-control" name="AddressType" id="AddressType">
+                                                    <option value="0">Address As Like National Identity?</option>
+                                                    <option value="1">Yes</option>
+                                                    <option value="2">No</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group row">
+                                                <input type="password" name="Password" id="Password" class="form-control" placeholder="enter your password" />
+                                            </div>
+                                            <div class="form-group row">
+                                                <input type="password" name="ConfirmPassword" id="ConfirmPassword" class="form-control" placeholder="enter pasword again" />
+                                            </div>
+                                            <div class="form-group row">
+                                                <button type="submit" class="btn btn-default btn-block" style="background: #FF5722; color: white; font-weight: bold">
+                                                    Submit
+                                                </button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/SweetAlert/sweetalert2.common.js"></script>
+    <script src="~/SweetAlert/sweetalert2.js"></script>
+
+    <script type="text/javascript">
+        var value = document.cookie;
+        var lang = value.slice(-2);
+
+
+
+        $(document).ready(function () {
+
+            $("#NationalIdentityType").change(function () {
+                thisVal = $(this).val();
+                if (thisVal == 1) {
+                    if (lang == 'bn')
+                        $('#nit').html('জাতীয় পরিচয়পত্র নং');
+                    else
+                        $('#nit').html('NID');
+                } else if (thisVal == 2) {
+                    if (lang == 'bn')
+                        $('#nit').html('জন্ম নিবন্ধন নং');
+                    else
+                        $('#nit').html('Barth Certificate No');
+                } else if (thisVal == 3) {
+                    if (lang == 'bn')
+                        $('#nit').html('পাসপোর্ট নম্বর');
+                    else
+                        $('#nit').html('Passport No');
+                } else {
+                    if (lang == 'bn')
+                        $('#nit').html('জাতীয় পরিচয়পত্র নং');
+                    else
+                        $('#nit').html('NID');
+                }
+            });
+
+            $("#formFile").change(function () {
+                var fileSize = (this.files[0].size);
+                var file = this.files[0];
+                var fileType = file["type"];
+                var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+                if ($.inArray(fileType, validImageTypes) < 0) {
+                    swal('Attention!', 'Uploaded photo must be a image type!', 'warning');
+                    return false;
+                } else if (fileSize > 300000) {
+                    swal('Attention!', 'Photo size must be less then or equal 20kb.', 'warning');
+                    return false;
+                }
+                var fileName = $(this).val();
+
+                $("#fileSelectLabel").html(fileName);
+                //imgFun();
+                readPictureURL(this);
+
+            });
+
+        });
+
+        function readPictureURL(input) {
+            if (input.files && input.files[0]) {
+                var filerdr = new FileReader();
+                filerdr.onload = function (e) {
+                    $('#UserImage').attr('src', e.target.result);
+                }
+                filerdr.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+    </script>
+</body>
+</html>

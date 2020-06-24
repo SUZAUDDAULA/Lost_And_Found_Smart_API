@@ -1,0 +1,85 @@
+﻿
+@model SorothalViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<section>
+    <div class="container">
+
+        <form id="myForm" asp-area="Admin" asp-controller="SorothalReport" asp-action="PageTwo" method="post">
+            <div class="card">
+
+                <div class="card-header">
+                    <h5 class="font-weight-bold" style="color: black">@Model.Lang.dOfDeceased</h5>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label for="name" class="col-form-label col-md-4">@Model.Lang.name <span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="name" id="name" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label for="fatherName" class="col-form-label col-md-4">@Model.Lang.fatherName <span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="fatherName" id="fatherName" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="img_list_div_id">
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="img" class="col-form-label col-md-2">@Model.Lang.img <span style="color: red">*</span></label>
+                            <div class="col-md-8 custom-control-inline">
+                                <input type="file" name="img" id="img" class="form-control" />
+                                <button type="button" onclick="addImgFun()" class="btn btn-success ml-1"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <br />
+            <button type="submit" class="btn btn-success float-right">@Model.Lang.nextBtn</button>
+
+        </form>
+        <div style="height:300px;"></div>
+    </div>
+</section>
+
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+
+        });
+
+        var index = 1;
+
+        function addImgFun() {
+
+            var div = '<div class="form-group row">' +
+                        '<div class="col-md-8" style="margin:auto">' +
+                            '<input type="file" name="img" id="img_'+ index +'" class="form-control" />' +
+                        '</div>' +
+                '</div>';
+
+            $("#img_list_div_id").append(div);
+            index++;
+        }
+
+    </script>
+}

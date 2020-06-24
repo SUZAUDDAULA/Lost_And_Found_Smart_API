@@ -1,0 +1,150 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http.Authentication
+@model LogInViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+
+        .input-container {
+            display: -ms-flexbox; /* IE10 */
+            display: flex;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .icon {
+            padding: 10px;
+            background: #FF5722;
+            color: white;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border: 2px solid #FF5722;
+        }
+
+        /* Set a style for the submit button */
+        .btn {
+            background-color: #FF5722;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .btn:hover {
+            opacity: 1;
+        }
+
+        body {
+            background: url('/images/background_05.jpg');
+            display: block;
+            position: relative;
+        }
+
+    </style>
+
+</head>
+
+<body>
+@*<div id="div_id"></div>*@
+<div class="container">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-12 col-md-9">
+            <div class="o-hidden border-0 margin_top" style="background: none">
+                <div class="p-0">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <img src="~/images/app.png" style="margin: 0px 0px 10px 0px;" height="160" width="260"/>
+                                    @*<h5 style="color: black; margin-bottom: 12px; font-weight: 700;">WELCOME TO LOST AND FOUND!!</h5>*@
+                                </div>
+
+                                <form class="user" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="input-container ">
+                                        <i class="fa fa-user icon"></i>
+                                        <input class="input-field" type="text" placeholder="User ID" name="Name">
+                                    </div>
+                                    <div class="input-container">
+                                        <i class="fas fa-lock icon"></i>
+                                        <input class="input-field" type="password" placeholder="Password" name="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" name="RememberMe" onclick="handleClick(this)" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">Remember Me</label>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="custom-control-inline" style="margin: auto">
+                                            <a class="collapse-item" asp-controller="PublicUser" asp-action="PublicRegister" style="text-align: center">Registration</a>
+                                            <span style="padding-left: 10px; padding-right: 10px">|</span>
+                                            <a class="collapse-item" asp-controller="PublicUser" asp-action="PublicRegister" style="text-align: center">Forgot Password</a>
+
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-default btn-block" style="background: #FF5722; font-weight: bold">
+                                        Login
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+
+    function handleClick(cb) {
+        if (cb.checked == true) {
+            $('#customCheck').val(true);
+        } else {
+            $('#customCheck').val(false);
+        }
+    }
+
+
+</script>
+
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/js/sb-admin-2.min.js"></script>
+
+</body>
+</html>

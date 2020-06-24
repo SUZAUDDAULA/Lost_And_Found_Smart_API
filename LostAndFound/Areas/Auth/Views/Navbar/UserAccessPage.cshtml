@@ -1,0 +1,142 @@
+﻿
+@model PageAssignViewModel
+
+@{
+    ViewData["Title"] = "UserAccessPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<br />
+<section>
+    <div class="card">
+        <div class="card-header">
+            <h5 style="color:black" class="font-weight-bold">User Access Page Assign</h5>
+        </div>
+
+        <form id="myForm">
+
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-form-label col-4" style="text-align:right">Role Category</label>
+                    <div class="col-4">
+                        <select id="userRole" name="userRole" class="form-control">
+                            <option value="0">   Select Role Type</option>
+                            @foreach (var item in Model.identityRoles)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-success btn-sm" onclick="loadNavItem()">Load</button>
+                    </div>
+                </div>
+            </div>
+
+            <section>
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered" id="navItemListTable">
+                            <thead>
+                                <tr>
+                                    <th>#SL</th>
+                                    <th>Menu</th>
+                                    <th>Child</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <div id="myFormField">
+
+            </div>
+            <br />
+            <button type="button" class="btn btn-success float-right" style="margin-right: 50px;" onclick="myFormSubmit()">Submit</button>
+            <br /><br /><br />
+        </form>
+
+    </div>
+</section>
+
+
+@section Scripts{
+
+    <script>
+
+        $(document).ready(function () {
+
+        });
+
+        function loadNavItem() {
+
+            var dtTable = $("#navItemListTable");
+            var tbody = dtTable.find('tbody');
+            tbody.empty();
+
+            var index = 1;
+
+
+            $.ajax({
+                url: "/Auth/Navbar/LoadNavItemList",
+                type: "post",
+                success: function (response) {
+
+                    var tr;
+
+                    $.each(response.parentNavItemList, function (i, menu) {
+                        var mName = menu.nameOption;
+                        $.each(response.childNavItemList, function (i, child) {
+
+                            if (menu.Id == child.parentID) {
+
+                                tr = '<tr>'+
+                                    '<td>' + index + '</td>' +
+                                    '<td>' + mName + '</td>' +
+                                    '<td>' + child.nameOption + '</td>' +
+                                    '<td>' +
+                                    '<input type="checkbox" onclick="check(' + child.Id + ')" class="form-control" id="navItem" name="navbarId"/>' +
+                                    '</td>'
+                                    '</tr>';
+                                
+                                tbody.append(tr);
+                                index++;
+                                mName = "";
+                            }
+                        });
+
+                    });
+                }
+            })
+        }
+
+        function check(id) {
+
+            var html = '<input type="hidden" name="navbarId" value="' + id + '" class="form-control" />';
+
+            $("#myFormField").append(html);
+
+        }
+
+        function myFormSubmit() {
+
+            var myData = $("#myForm").serialize();
+
+            $.ajax({
+                url: "/Auth/Navbar/UserAccessPage",
+                type: "post",
+                data: myData,
+                success: function (response) {
+
+                    
+                }
+            })
+        }
+
+    </script>
+}
+

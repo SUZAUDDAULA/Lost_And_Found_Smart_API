@@ -1,0 +1,149 @@
+﻿@model MetropolitanAreaViewModel
+@{
+    ViewData["Title"] = "Metropolitan Area";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section style="text-align: center">
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h5 class="font-weight-bold" style="color: black">Metropolitan Area</h5>
+        </div>
+        <div class="card-body">
+            <form asp-area="MasterData" asp-controller="VehicleInformation" asp-action="MetropolitanArea" method="post">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9">
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Area Name (English)<span style="color:red">*</span> </label>
+                            <div class="col-md-5">
+                                <input type="text" id="areaName" name="areaName" class="form-control" required />
+                                <input type="hidden" id="areaId" name="areaId" value="0" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Area Name (Bangla) </label>
+                            <div class="col-md-5">
+                                <input type="text" id="areaNameBn" name="areaNameBn" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="height:20px;"></div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0 row">
+                        <button type="button" onclick="Refresh()" class="btn btn-warning">
+                            Refresh
+                        </button>&nbsp;&nbsp;
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h5 class="font-weight-bold" style="color: black;">Metropolitan List</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <table id="tblMetropolitan" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Area Name (English)</th>
+                                <th>Area Name (Bangla)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var data in Model.metropolitanAreas)
+                            {
+                                <tr>
+                                    <td>@data.areaName</td>
+                                    <td>@data.areaNameBn</td>
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="Edit(@data.Id,'@data.areaName','@data.areaNameBn')" title="Edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                        <a href="javascript:void(0)" onclick="Delete(@data.Id)" title="Delete" class="btn btn-danger"><i class="fas fa-trash-alt" s></i></a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="height:350px;"></div>
+</section>
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#tblMetropolitan').DataTable();
+        });
+
+        function Edit(id, name,nameBn) {
+            $('#areaId').val(id);
+            $('#areaName').val(name);
+            $('#areaNameBn').val(nameBn);
+        }
+
+        function Refresh() {
+            location.reload();
+        }
+
+        function Delete(id) {
+            swal({
+                title: 'Are you sure?', text: "You want to delete this data!", type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, delete it!'
+            }).then(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/MasterData/VehicleInformation/DeleteMetropolitanAreaById",
+                    data: { id: id },
+                    success: function (res) {
+                        swal({
+                            title: 'Success!',
+                            text: 'Deleted Successfully!',
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok!',
+                        }).then(function () {
+                            window.location.href = "/MasterData/VehicleInformation/MetropolitanArea";
+                        });
+
+                    },
+                    error: function (s, err) {
+                        swal('Attention!', 'Uable to Delete! ' + err, 'warning');
+                    }
+                });
+            });
+        }
+
+    </script>
+}
+
+
+
+

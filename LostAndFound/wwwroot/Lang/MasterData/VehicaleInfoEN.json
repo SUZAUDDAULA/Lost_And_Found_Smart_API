@@ -1,0 +1,12 @@
+{
+  "vehicleType": "Vehicle Name",
+  "vehicleModel": "Model",
+  "title": "Vehicle Entry",
+  "photo": "Photo",
+  "listTitle": "Vehicle List",
+  "submitButton": "Save",
+  "refreshButton": "Refresh",
+  "modelTitle": "Vehicle Model Entry",
+  "modelListTitle": "Vehicle Model List",
+  "action": "Action"
+}

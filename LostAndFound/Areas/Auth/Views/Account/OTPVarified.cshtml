@@ -1,0 +1,213 @@
+﻿@model OTPCodeVarificationViewModel
+@{
+    ViewData["Title"] = "OTPVarified";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="font-weight-bold" style="color: black">@Model.oLang.title</h5>
+    </div>
+    <div class="card-body">
+        <div id="wrapper">
+            <div id="dialog">
+                <span style="color:red">@Model.oLang.message</span><br />
+                <span>@Model.oLang.label</span>
+                <div id="form" class="form-inline">
+                    <input type="text" id="opt1" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                    <input type="text" id="opt2" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                    <input type="text" id="opt3" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                    <input type="text" id="opt4" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+
+                </div>
+                <div style="height:20px;"></div>
+                <button onclick="ProcessVerified()" class="btn btn-primary btn-embossed">Verify</button>
+                <div>
+                    Didn't receive the code?<br />
+                    <a href="#">Send code again</a><br />
+                </div>
+            </div>
+        </div>
+   
+        @*<div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group row">
+                    <label class="col-form-label col-md-4"></label>
+                    <div class="col-md-8">
+                        <span>@Model.oLang.label</span>
+                        <input id="otpCode" name="otpCode" class="form-control" maxlength="4" required />
+                        <span style="color:red">@Model.oLang.message</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height:20px;"></div>
+        <div class="form-group row">
+            <div class="col-sm-3 mb-3 mb-sm-0">
+
+            </div>
+            <div class="col-sm-6 mb-3 mb-sm-0 row">
+                <button class="btn btn-dark">
+                    Resend
+                </button>&nbsp;&nbsp;
+                <button type="submit" class="btn btn-info" onclick="ProcessVerified()">
+                    Varified
+                </button>
+            </div>
+        </div>*@
+    </div>
+    <div style="height:250px;"></div>
+</div>
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            console.log('@Model.otpCode');
+
+            //$("#otpCode").focus();
+
+            $('#opt1').focus()
+
+        });
+
+        function ProcessVerified() {
+            var otpCode = $('#opt1').val() + $('#opt2').val() + $('#opt3').val() + $('#opt4').val();
+            alert(otpCode);
+            if (otpCode == '') {
+                swal('Attention!!', 'Please OPT Code entred', 'warning');
+                return false;
+            }
+
+            if (otpCode == '@Model.otpCode') {
+                window.location.href = '/Home/Dashboard';
+            } else {
+                swal('Attention!!', 'Invalid Code', 'warning');
+            }
+            //Common.Ajax('GET', '/api/Account/OTPVarifiedMatching', [], 'json', VarifiedResult);
+        }
+
+        function VarifiedResult(response) {
+            if (response == 'success') {
+                window.location.href = '/Home/Dashboard';
+            } else {
+                swal('Attention!!', 'Invalid Code', 'warning');
+            }
+        }
+
+        $(function () {
+            'use strict';
+
+            var body = $('body');
+
+            function goToNextInput(e) {
+                var key = e.which,
+                    t = $(e.target),
+                    sib = t.next('input');
+
+                if (key != 9 && (key < 48 || key > 57)) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                if (key === 9) {
+                    return true;
+                }
+
+                if (!sib || !sib.length) {
+                    sib = body.find('input').eq(0);
+                }
+                sib.select().focus();
+            }
+
+            function onKeyDown(e) {
+                var key = e.which;
+
+                if (key === 9 || (key >= 48 && key <= 57)) {
+                    return true;
+                }
+
+                e.preventDefault();
+                return false;
+            }
+
+            function onFocus(e) {
+                $(e.target).select();
+            }
+
+            body.on('keyup', 'input', goToNextInput);
+            body.on('keydown', 'input', onKeyDown);
+            body.on('click', 'input', onFocus);
+
+        })
+
+    </script>
+
+}
+
+<style>
+    #wrapper {
+        font-family: Lato;
+        font-size: 1.5rem;
+        text-align: center;
+        box-sizing: border-box;
+        color: #333;
+    }
+    #dialog {
+        border: solid 1px #ccc;
+        margin: 10px auto;
+        padding: 20px 30px;
+        display: inline-block;
+        box-shadow: 0 0 4px #ccc;
+        background-color: #faf8f8;
+        overflow: hidden;
+        position: relative;
+        max-width: 450px;
+    }
+        h3{
+        margin: 0 0 10px;
+        padding: 0;
+        line-height: 1.25;
+    }
+
+    span {
+        font-size: 90%;
+    }
+
+    #form {
+        max-width: 240px;
+        margin: 25px auto 0;
+    }
+    input {
+        margin: 0 5px;
+        text-align: center;
+        line-height: 80px;
+        font-size: 50px;
+        border: solid 1px #ccc;
+        box-shadow: 0 0 5px #ccc inset;
+        outline: none;
+        width: 20%;
+        transition: all 0.2s ease-in-out;
+        border-radius: 3px;
+    }
+ 
+
+
+   
+
+    div {
+        position: relative;
+        z-index: 1;
+    }
+
+    img {
+        position: absolute;
+        bottom: -70px;
+        right: -63px;
+    }
+
+
+</style>

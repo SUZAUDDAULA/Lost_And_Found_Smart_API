@@ -1,0 +1,394 @@
+﻿
+@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+   
+    .center {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .menu {
+        width: 80px;
+        height: 80px;
+    }
+
+    .title {
+        width: 600px;
+        height: 20px;
+        top: 60px;
+    }
+
+    .item {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 80px;
+        height: 80px;
+        background-color: #a19f9f;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        cursor: pointer;
+        text-align: center;
+        line-height: 80px;
+    }
+
+    .center i {
+        font-size: 24px;
+        color: #222222;
+    }
+    a:hover {
+        text-decoration: none;
+    } 
+</style>
+<br />
+
+<section>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="card">
+                <div class="card-body" style="height:80px!important">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <img src="~/images/app.png" height="50" width="80" style="margin-top: -25px" />
+                            <span class="font-weight-bold ml-3" style="color: black; font-size: 20px; padding-top: 3px;">DASHBOARD</span>
+                        </div>
+                        <div class="col-md-2" style="margin-top: 10px">
+                            <div class="center menu">
+                                <div id="myMenu"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12" style="padding-right: 0;font-weight:bold;font-family:'Times New Roman', Times, serif">
+                            <a href="javascript:void(0)" onclick="fnSuspension(1)" class="btn btn-primary btn-lg" role="button" style="width:24%;height:130px;background-color:#ff3300;background: linear-gradient(-45deg, #ff3300, #ff9100, #ff6d00, #ff9100)">
+                                <br />
+                                <span class="pull-left">@Model.dashboardLn.complaint<span id="TotalApprove"></span></span><br />
+                                <span class="pull-left">@Model.gDInformation.Where(x => x.statusId == 1).Count()<span id="TotalApproveAMT"></span></span><br />
+                            </a>
+
+                            <a href="javascript:void(0)" onclick="fnSuspension(-1)" class="btn btn-info btn-lg" role="button" style="width:24%;height:130px;background-color:#fe504f;background: linear-gradient(-45deg, #fe504f, #fe504f, #f4511e, #ff5722, #ff7043)">
+                                <br />
+                                <span class="pull-left">@Model.dashboardLn.rejected<span id="TotalApprove"></span></span><br />
+                                <span class="pull-left">@Model.gDInformation.Where(x => x.statusId == -1).Count()<span id="TotalApproveAMT"></span></span><br />
+                            </a>
+                            <a href="javascript:void(0)" onclick="fnSuspension(2)" class="btn btn-info btn-lg" role="button" style="width:24%;height:130px;background-color:#ff9934;background: linear-gradient(-45deg,#ff9934, #ff9934, #ff9934, #ff6d00, #ff9934, #ff9934)">
+                                <br />
+                                <span class="pull-left">@Model.dashboardLn.investigation<span id="TotalApprove"></span></span><br />
+                                <span class="pull-left">@Model.gDInformation.Where(x => x.statusId == 2).Count()<span id="TotalApproveAMT"></span></span><br />
+                            </a>
+                            <a href="javascript:void(0)" onclick="fnSuspension(3)" class="btn btn-info btn-lg" role="button" style="width:24%;height:130px;background-color:#fe504f;background: linear-gradient(-45deg,#fe504f, #fe504f, #fe504f, #fe504f, #fe504f, #fe504f)">
+                                <br />
+                                <span class="pull-left">@Model.dashboardLn.finished<span id="TotalApprove"></span></span><br />
+                                <span class="pull-left">@Model.gDInformation.Where(x => x.statusId == 3).Count()<span id="TotalApproveAMT"></span></span><br />
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 style="color: black">@Model.dashboardLn.title01</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-striped" id="data_table_id">
+                        <thead>
+                            <tr>
+                                <th>@Model.dashboardLn.date</th>
+                                <th>@Model.dashboardLn.trackingNumber</th>
+                                <th>@Model.dashboardLn.status</th>
+                                <th>@Model.dashboardLn.report</th>
+                            </tr>
+                        </thead>
+                        @*<tbody>
+                            @foreach (var data in Model.gDInformation)
+                            {
+                                string status = string.Empty;
+                                if (data.statusId == 1)
+                                {
+                                    status = "Panding";
+                                }
+                                else
+                                {
+                                    status = "Complete";
+                                }
+
+                                <tr>
+                                    <td>@data.gdDate?.ToString("dd/MM/yyyy")</td>
+                                    <td>@data.gdNumber</td>
+                                    <td>
+                                        @status
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Home" asp-action="Report" asp-route-Id="@data.Id" class="btn btn-success" target="_blank" title="report"><i class="fa fa-file-pdf"></i></a>&nbsp;&nbsp;
+                                        <a asp-area="ReportORApplication" asp-controller="NewApplication" asp-action="GDDetailsView" asp-route-Id="@data.Id" class="btn btn-info" title="Details"><i class="fa fa-eye"></i></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>*@
+                    </table>
+                </div>
+            </div>
+        
+
+</section>
+
+@section Scripts
+    {
+    @*<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/1.1.3/anime.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#data_table_id").DataTable();
+            Common.Ajax('GET', '/api/Home/GetGDInformationByStatus/' + 0, [], 'json', LoadGDinformatino);
+        })
+
+        function InfoEntry(id) {
+            var url = "/ReportORApplication/NewApplication/Index?id=" + id;
+            window.location.href = url;
+        }
+
+        function fnSuspension(id) {
+            Common.Ajax('GET', '/api/Home/GetGDInformationByStatus/' + id , [], 'json', LoadGDinformatino);
+        }
+
+        function LoadGDinformatino(response) {
+         
+
+            $('#data_table_id').DataTable().destroy();
+            $('#data_table_id').DataTable({
+
+                data: response,
+                "scrollX": true,
+                columns: [
+                    {
+                        data: "gdDate"
+                    },
+                    { data: "gdNumber" },
+                    {
+                        'data': "statusId",
+                        'render': function (data, type, e, row) {
+                            if (e.statusId == 1)
+                                return 'Complaint';
+                            else if (e.statusId == -1)
+                                return 'Rejected'
+                            else if (e.statusId == 2)
+                                return 'Investigation'
+                            else
+                                return 'Finished'
+                        }
+                    },
+                    {
+                        'data': null,
+                        'render': function (data, type, e, row) {
+                            return '<a href="/Home/Report/' + e.Id + '" class="btn btn-success" target="_blank" title="report"><i class="fa fa-file-pdf"></i></a>&nbsp;&nbsp;' +
+                                '<a href="/ReportORApplication/NewApplication/GDDetailsView/' + e.Id + '"  class="btn btn-info" title="Details"><i class="fa fa-eye"></i></a>'
+                        }
+                    }
+                ],
+
+
+            });
+
+        }
+
+        var timeOut;
+
+        class Item {
+            constructor(icon, backgroundColor,title,action) {
+                this.$element = $(document.createElement("div"));
+                this.icon = icon;
+                this.$element.addClass("item");
+                this.$element.attr("title", title);
+                this.$element.append(action);
+                this.$element.css("background-color", backgroundColor);
+                var i = document.createElement("i");
+                $(i).addClass("fas " + icon);
+                this.$element.append(i);
+                this.prev = null;
+                this.next = null;
+                this.isMoving = false;
+                var element = this;
+                this.$element.on("mousemove", function () {
+                    clearTimeout(timeOut);
+                    timeOut = setTimeout(function () {
+                        if (element.next && element.isMoving) {
+                            element.next.moveTo(element);
+                        }
+                    }, 10);
+                });
+            }
+
+            moveTo(item) {
+                anime({
+                    targets: this.$element[0],
+                    left: item.$element.css("left"),
+                    top: item.$element.css("top"),
+                    duration: 700,
+                    elasticity: 500
+                });
+                if (this.next) {
+                    this.next.moveTo(item);
+                }
+            }
+
+            updatePosition() {
+                anime({
+                    targets: this.$element[0],
+                    left: this.prev.$element.css("left"),
+                    top: this.prev.$element.css("top"),
+                    duration: 200
+                });
+
+                if (this.next) {
+                    this.next.updatePosition();
+                }
+            }
+        }
+
+        class Menu {
+            constructor(menu) {
+                this.$element = $(menu);
+                this.size = 0;
+                this.first = null;
+                this.last = null;
+                this.timeOut = null;
+                this.hasMoved = false;
+                this.status = "closed";
+            }
+
+            add(item) {
+                var menu = this;
+                if (this.first == null) {
+                    this.first = item;
+                    this.last = item;
+                    this.first.$element.on("mouseup", function () {
+                        if (menu.first.isMoving) {
+                            menu.first.isMoving = false;
+                        } else {
+                            menu.click();
+                        }
+                    });
+                    item.$element.draggable(
+                        {
+                            start: function () {
+                                menu.close();
+                                item.isMoving = true;
+                            }
+                        },
+                        {
+                            drag: function () {
+                                if (item.next) {
+                                    item.next.updatePosition();
+                                }
+                            }
+                        },
+                        {
+                            stop: function () {
+                                item.isMoving = false;
+                                item.next.moveTo(item);
+                            }
+                        }
+                    );
+                } else {
+                    this.last.next = item;
+                    item.prev = this.last;
+                    this.last = item;
+                }
+                this.$element.after(item.$element);
+
+
+            }
+
+            open() {
+                this.status = "open";
+                var current = this.first.next;
+                var iterator = 1;
+                var head = this.first;
+                var sens = head.$element.css("left") < head.$element.css("right") ? 1 : -1;
+                while (current != null) {
+                    anime({
+                        targets: current.$element[0],
+                        left: parseInt(head.$element.css("left"), 10) + (sens * (iterator * 100)),
+                        top: head.$element.css("top"),
+                        duration: 500
+                    });
+                    iterator++;
+                    current = current.next;
+                }
+            }
+
+            close() {
+                this.status = "closed";
+                var current = this.first.next;
+                var head = this.first;
+                var iterator = 1;
+                while (current != null) {
+                    anime({
+                        targets: current.$element[0],
+                        left: head.$element.css("left"),
+                        top: head.$element.css("top"),
+                        duration: 500
+                    });
+                    iterator++;
+                    current = current.next;
+                }
+            }
+
+            click() {
+                if (this.status == "closed") {
+                    this.open();
+                } else {
+                    this.close();
+                }
+            }
+
+        }
+
+        var menu = new Menu("#myMenu");
+        var item1 = new Item("", "#fcd5b4", "Menu","<a href='javascript:void(0)' style='color:white;font-weight:bold;'>Add New</a>");
+        var item2 = new Item("fa-fist-raised", "#fe504f","Found","<a href='javascript:void(0)' onclick='InfoEntry(2)' style='color:white'>Found &nbsp;</a>");
+        var item3 = new Item("fa-low-vision", "#ff9a66", "Lost","<a href='javascript:void(0)' onclick='InfoEntry(1)' style='color:white'>Lost &nbsp;</a>");
+        var item4 = new Item("fa-theater-masks", "#ff6600", "Theft", "<a href='javascript:void(0)' onclick='InfoEntry(3)' style='color:white'>Theft &nbsp;</a>");
+        //var item5 = new Item("fa-search-plus", "#bd081c", "Search", "<a href='javascript:void(0)' onclick='InfoEntry(4)' style='color:white'>Search &nbsp;</a>");
+
+        menu.add(item1);
+        menu.add(item2);
+        menu.add(item3);
+        menu.add(item4);
+        //menu.add(item5);
+        $(document).delay(50).queue(function (next) {
+            menu.open();
+            next();
+            $(document).delay(1000).queue(function (next) {
+                menu.close();
+                next();
+            });
+        });
+    </script>
+}

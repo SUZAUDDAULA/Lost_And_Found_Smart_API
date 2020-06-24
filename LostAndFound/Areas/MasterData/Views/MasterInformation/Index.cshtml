@@ -1,0 +1,198 @@
+﻿@model DocumentTypeViewModel
+@{
+    ViewData["Title"] = "Document";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section style="text-align: center">
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h5 class="font-weight-bold" style="color: black">@Model.fLang.title</h5>
+        </div>
+        <div class="card-body">
+            <form asp-area="MasterData" asp-controller="MasterInformation" asp-action="Index" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9">
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">@Model.fLang.documentType <span style="color:red">*</span> </label>
+                            <div class="col-md-5">
+                                <input type="text" id="documentTypeName" name="documentTypeName" class="form-control" required />
+                                <input type="hidden" id="documentTypeId" name="documentTypeId" value="0" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Document Type(Bangla)</label>
+                            <div class="col-md-5">
+                                <input type="text" id="documentTypeNameBn" name="documentTypeNameBn" class="form-control" />
+                                
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Shorting Order </label>
+                            <div class="col-md-5">
+                                <input type="number" step="1" id="shortOrder" name="shortOrder" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-4">@Model.fLang.photo</label>
+                                <div class="col-md-8">
+                                    <img id="LostImage" height="150" width="140" class="img-circle" /><br />
+                                    <input type="file" name="formFile" id="formFile" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div style="height:20px;"></div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0 row">
+                        <button type="button" onclick="Refresh()" class="btn btn-warning">
+                            @Model.fLang.refreshButton
+                        </button>&nbsp;&nbsp;
+                        <button type="submit" class="btn btn-primary">
+                            @Model.fLang.submitButton
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h5 class="font-weight-bold" style="color: black;">@Model.fLang.listTitle</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <table id="tblDocumentType" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>@Model.fLang.documentType</th>
+                                <th>Document Type (Bangla)</th>
+                                <th>Shorting Order</th>
+                                <th>@Model.fLang.photo</th>
+                                <th>@Model.fLang.action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var data in Model.documentTypes)
+                            {
+                                <tr>
+                                    <td>@data.documentTypeName</td>
+                                    <td>@data.documentTypeNameBn</td>
+                                    <td>@data.shortOrder</td>
+                                    <td><img src="/@data.imagePath" width="50" height="50" /></td>
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="Edit(@data.Id,'@data.documentTypeName','@data.documentTypeNameBn','@data.imagePath',@data.shortOrder)" title="Edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                        <a href="javascript:void(0)" onclick="Delete(@data.Id)" title="Delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                        <a href="/MasterData/MasterInformation/DocumentCategoryBrand?id=@data.Id" title="Brand" class="btn btn-success">Brand</a>
+                                        <a href="/MasterData/MasterInformation/DocumentCategoryAccessories?id=@data.Id" title="Accessories" class="btn btn-secondary">Accessories</a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="height:350px;"></div>
+</section>
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#tblDocumentType').DataTable();
+
+            $("#formFile").change(function () {
+                var fileSize = (this.files[0].size);
+                var file = this.files[0];
+                var fileType = file["type"];
+                var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+                if ($.inArray(fileType, validImageTypes) < 0) {
+                    swal('Attention!', 'Uploaded photo must be a image type!', 'warning');
+                    return false;
+                } else if (fileSize > 300000) {
+                    swal('Attention!', 'Photo size must be less then or equal 20kb.', 'warning');
+                    return false;
+                }
+
+                readPictureURL(this);
+
+            });
+
+        });
+
+        function Edit(id, name,nameBn,imgPath,orderNo) {
+            $('#documentTypeId').val(id);
+            $('#documentTypeName').val(name);
+            $('#documentTypeNameBn').val(nameBn);
+            $('#shortOrder').val(orderNo);
+            $('#LostImage').attr('src', imgPath);
+        }
+
+        function Refresh() {
+            location.reload();
+        }
+
+        function Delete(id) {
+            swal({
+                title: 'Are you sure?', text: "You want to save this data!", type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, save it!'
+            }).then(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/MasterData/MasterInformation/DeleteDocumentTypeById",
+                    data: { id: id },
+                    success: function (res) {
+                        swal({
+                            title: 'Success!',
+                            text: 'Deleted Successfully!',
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok!',
+                        }).then(function () {
+                            window.location.href = "/MasterData/MasterInformation/Index";
+                        });
+
+                    },
+                    error: function (s, err) {
+                        swal('Attention!', 'Uable to Delete! ' + err, 'warning');
+                    }
+                });
+            });
+        }
+
+        function readPictureURL(input) {
+            if (input.files && input.files[0]) {
+                var filerdr = new FileReader();
+                filerdr.onload = function (e) {
+                    $('#LostImage').attr('src', e.target.result);
+                }
+                filerdr.readAsDataURL(input.files[0]);
+            }
+        }
+
+    </script>
+}
+

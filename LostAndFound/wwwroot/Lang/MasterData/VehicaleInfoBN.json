@@ -1,0 +1,12 @@
+﻿{
+  "vehicleType": "যানবাহনের নাম",
+  "vehicleModel": "মডেল",
+  "photo": "ছবি",
+  "title": "যানবাহনের নিবন্ধন",
+  "listTitle": "যানবাহনের তালিকা",
+  "submitButton": "Save",
+  "refreshButton": "Refresh",
+  "modelTitle": "যানবাহনের মডেল নিবন্ধন",
+  "modelListTitle": "মডেলের তালিকা",
+  "action": "প্রক্রিয়া"
+}

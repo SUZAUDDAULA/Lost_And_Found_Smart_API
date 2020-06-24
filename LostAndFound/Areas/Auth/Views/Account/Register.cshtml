@@ -1,0 +1,216 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Areas/Auth/Views/Shared/_AuthLayout.cshtml";
+}
+
+@section StyleAuth{
+
+    <style>
+    </style>
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="font-weight-bold" style="color: black">@Model.rLang.registrationForm</h5>
+    </div>
+    <div class="card-body">
+        <form class="user" asp-area="Auth" asp-controller="Account" asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">@Model.rLang.citizenship<span style="color: red">*</span></label>
+                        <div class="col-md-8">
+                            <select class="form-control" name="Citizenship" id="Citizenship">
+                                <option value="Citizen">Citizen</option>
+                                <option value="Foreigner">Foreigner</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">@Model.rLang.nationalIdentityType<span style="color: red">*</span></label>
+                        <div class="col-md-8">
+                            <select class="form-control" id="NationalIdentityType" name="NationalIdentityType">
+                                <option value="1">National ID</option>
+                                <option value="2">Barth Certification No</option>
+                                <option value="3">Passport No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">@Model.rLang.phoneNumber<span style="color: red">*</span></label>
+                        <div class="col-md-8">
+                            <input id="PhoneNumber" name="PhoneNumber" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4"><span id="nit">@Model.rLang.nationalIdentityNo</span> <span style="color: red">*</span></label>
+                        <div class="col-md-8">
+                            <input id="NationalIdentityNo" name="NationalIdentityNo" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">@Model.rLang.fullName<span style="color: red">*</span></label>
+                        <div class="col-md-8">
+                            <input id="FullName" name="FullName" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">@Model.rLang.email</label>
+                        <div class="col-md-8">
+                            <input type="email" id="Email" name="Email" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">@Model.rLang.addressType</label>
+                        <div class="col-md-8 row">
+                            <div class="col-sm-6 form-inline">
+                                <label for="yes">Yes</label>
+                                <input type="checkbox" class="form-control" id="yes" style="width:30%;" name="address">
+                                <input type="hidden" id="AddressType" name="AddressType" value="1" />
+                            </div>
+                            <div class="col-sm-6 form-inline">
+                                <label for="no">No</label>
+                                <input type="checkbox" class="form-control" id="no" style="width:30%;" name="address">
+                            </div>
+                            @*<textarea class="form-control" rows="3"></textarea>*@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">@Model.rLang.imagePath</label>
+                        <div class="col-md-8">
+                            <img id="UserImage" height="150" width="140" class="img-circle" /><br />
+                            <input type="file" name="formFile" id="formFile" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">@Model.rLang.password <span style="color:red;">*</span></label>
+                        <div class="col-md-8">
+                            <input type="password" name="Password" id="Password" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-4">@Model.rLang.confirmPassword <span style="color:red;">*</span> </label>
+                        <div class="col-md-8">
+                            <input type="password" name="ConfirmPassword" id="ConfirmPassword" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="height:20px;"></div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+
+                </div>
+                <div class="col-sm-6 mb-3 mb-sm-0 row">
+                    <button class="btn btn-dark">
+                        Refresh
+                    </button>&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-info">
+                        Register Account
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section ScriptsAuth{
+    <script type="text/javascript">
+        var value = document.cookie;
+        var lang = value.slice(-2);
+
+        $(document).ready(function () {
+
+            $("#NationalIdentityType").change(function () {
+                thisVal = $(this).val();
+                if (thisVal == 1) {
+                    if (lang == 'bn')
+                        $('#nit').html('জাতীয় পরিচয়পত্র নং');
+                    else
+                        $('#nit').html('NID');
+                } else if (thisVal == 2) {
+                    if (lang == 'bn')
+                        $('#nit').html('জন্ম নিবন্ধন নং');
+                    else
+                        $('#nit').html('Barth Certificate No');
+                } else if (thisVal == 3) {
+                    if (lang == 'bn')
+                        $('#nit').html('পাসপোর্ট নম্বর');
+                    else
+                        $('#nit').html('Passport No');
+                } else {
+                    if (lang == 'bn')
+                        $('#nit').html('জাতীয় পরিচয়পত্র নং');
+                    else
+                        $('#nit').html('NID');
+                }
+            });
+
+            $("#formFile").change(function () {
+                var fileSize = (this.files[0].size);
+                var file = this.files[0];
+                var fileType = file["type"];
+                var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+                if ($.inArray(fileType, validImageTypes) < 0) {
+                    swal('Attention!', 'Uploaded photo must be a image type!', 'warning');
+                    return false;
+                } else if (fileSize > 300000) {
+                    swal('Attention!', 'Photo size must be less then or equal 20kb.', 'warning');
+                    return false;
+                }
+
+                readPictureURL(this);
+                
+            });
+
+        });
+
+        function readPictureURL(input) {
+            if (input.files && input.files[0]) {
+                var filerdr = new FileReader();
+                filerdr.onload = function (e) {
+                    $('#UserImage').attr('src', e.target.result);
+                }
+                filerdr.readAsDataURL(input.files[0]);
+            }
+        }
+        
+
+    </script>
+}

@@ -1,0 +1,24 @@
+﻿{
+  "title01": "Details",
+  "district": "District/Unit",
+  "thana": "Thana",
+  "infoType": "Information type",
+  "infoNum": "Information Number",
+  "date": "Date",
+  "time": "Time",
+  "nextBtn": "Next",
+  "dOfDeceased": "Details of the deceased",
+  "name": "Name",
+  "fatherName": "Father/Husband Name",
+  "title02": "Name of the deceased person",
+  "img": "Image",
+  "img01": "Front of head",
+  "img02": "The back of the head",
+  "img03": "Picture of face",
+  "img04": "In front of the neck",
+  "img05": "Behind the neck",
+  "img06": "Chest picture",
+  "img07": "Picture of the back",
+  "img08": "Ear picture"
+
+}

@@ -1,0 +1,13 @@
+{
+  "documentType": "Document Type",
+  "documentCategory": "Document Category(English)",
+  "documentCategoryBn": "Document Category(Bangla)",
+  "title": "Document Entry",
+  "categoryTitle": "Document Category Entry",
+  "photo": "Photo",
+  "listTitle": "Document List",
+  "categoryListTitle": "Document Category List",
+  "submitButton": "Save",
+  "refreshButton": "Refresh",
+  "action": "Action"
+}

@@ -1,0 +1,9 @@
+{
+  "productType": "Product Type",
+  "title": "Product Type Entry",
+  "listTitle": "Product Type List",
+  "photo": "Photo",
+  "submitButton": "Save",
+  "refreshButton": "Refresh",
+  "action": "Action"
+}

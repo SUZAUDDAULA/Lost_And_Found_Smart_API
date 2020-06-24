@@ -1,0 +1,13 @@
+﻿{
+  "documentType": "ডকুমেন্টের ধরণ",
+  "documentCategory": "ডকুমেন্টের প্রকার(ইংরেজি)",
+  "documentCategoryBn": "ডকুমেন্টের প্রকার(বাংলা)",
+  "title": "ডকুমেন্ট নিবন্ধন",
+  "categoryTitle": "ডকুমেন্টের প্রকার নিবন্ধন",
+  "photo": "ছবি",
+  "listTitle": "ডকুমেন্টের তালিকা",
+  "categoryListTitle": "ডকুমেন্টের প্রকার তালিকা",
+  "submitButton": "Save",
+  "refreshButton": "Refresh",
+  "action": "প্রক্রিয়া"
+}

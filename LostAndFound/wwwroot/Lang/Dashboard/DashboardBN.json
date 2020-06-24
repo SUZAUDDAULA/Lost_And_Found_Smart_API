@@ -1,0 +1,13 @@
+﻿{
+  "title01": "তালিকা",
+  "addBtn": "তথ্য এন্ট্রি",
+  "searchBtn": "তথ্য সার্চ ",
+  "date": "তারিখ",
+  "trackingNumber": "ট্র্যাকিং নম্বর",
+  "status": "অবস্থা",
+  "report": "প্রতিবেদন",
+  "rejected": "বাতিল",
+  "complaint": "অভিযোগ",
+  "investigation": "তদন্তাধীন",
+  "finished": "নিস্পত্তি"
+}

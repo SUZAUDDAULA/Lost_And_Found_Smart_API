@@ -1,0 +1,191 @@
+﻿
+@model LostAndFound.Areas.ReportORApplication.Models.VehicaleViewModel
+
+@{
+    ViewData["Title"] = "DetailsVehicale";
+}
+<section>
+    <div class="container">
+        <form id="myForm" asp-area="ReportORApplication" asp-controller="NewApplication" asp-action="DetailsVehicale" method="post">
+            @if (ViewBag.check == 2)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="font-weight-bold" style="color: black">@Model.Lang.personTitle</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">@Model.Lang.documentType<span style="color: red">*</span></label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" name="" id="">
+                                                <option value="0">select document type</option>
+                                                <option value="1">NID</option>
+                                                <option value="2">Birth</option>
+                                                <option value="2">Passport</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">@Model.Lang.number<span style="color: red">*</span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" name="" id="" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">@Model.Lang.mobile<span style="color: red">*</span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" name="" id="" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <br/>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="font-weight-bold" style="color: black">@Model.Lang.detailsTitle</h5>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.vehiclesType<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="" id="">
+                                            <option value="0">select vehicles type</option>
+                                            <option value="1">Motor Bike</option>
+                                            <option value="2">Track</option>
+                                            <option value="2">Bus</option>
+                                            <option value="2">Privet Car</option>
+                                            <option value="2">Van</option>
+                                            <option value="2">Others</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.brandName<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="" id="">
+                                            <option value="0">select brand name</option>
+                                            <option value="1">YAHAMAHA</option>
+                                            <option value="2">HONDA</option>
+                                            <option value="3">HERO</option>
+                                            <option value="3">OTEHRS</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.model <span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="" id="" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3">@Model.Lang.registrationNo<span style="color: red">*</span></label>
+                                <div class="col-md-3">
+                                    <select class="form-control" name="" id="">
+                                        <option value="0">select metro</option>
+                                        <option value="1">Dhaka Metro</option>
+                                        <option value="2">Chittagong Metro</option>
+                                        <option value="3">Sylhet Metro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" name="" id="">
+                                        <option value="0">select group</option>
+                                        <option value="1">ক</option>
+                                        <option value="2">খ</option>
+                                        <option value="3">ল</option>
+                                        <option value="4">স</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="" id="" class="form-control" placeholder="enter reg no"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="container">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">@Model.Lang.engineNumber <span style="color: red">*</span></label>
+                            <div class="col-md-10">
+                                <input type="text" name="" id="" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.chassisNo<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="" id="" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.cc<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="" id="" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.yearOfMaking<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="" id="" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.countryOfMaking<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="" id="" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <button type="submit" class="btn btn-success float-right">@Model.Lang.nextBtn</button>
+            <br/><br/>
+
+        </form>
+    </div>
+</section>
+
+

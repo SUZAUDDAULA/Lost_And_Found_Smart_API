@@ -1,0 +1,104 @@
+﻿
+@model LostAndFound.Areas.ReportORApplication.Models.DetailsOfLostSpaceAndTimeViewModel
+
+@{
+    ViewData["Title"] = "DetailsOfLostSpaceAndTime";
+}
+
+
+<br/>
+
+<section>
+    <div class="container">
+        <form id="myForm">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="font-weight-bold" style="color: black">@Model.Lang.dateTimeTitle</h5>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.division<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control">
+                                            <option value="0">select division</option>
+                                            <option value="0">Dhaka</option>
+                                            <option value="0">Chittagong</option>
+                                            <option value="0">Sylhet</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.distric<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control">
+                                            <option value="0">select distric</option>
+                                            <option value="0">Cumilla</option>
+                                            <option value="0">Feni</option>
+                                            <option value="0">Dhaka</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.thana<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control">
+                                            <option value="0">select thana</option>
+                                            <option value="0">Cumilla Sadar</option>
+                                            <option value="0">Homna</option>
+                                            <option value="0">Moradnogor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.village<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control">
+                                            <option value="0">select village or area</option>
+                                            <option value="0">Dulal pur</option>
+                                            <option value="0">Dulat pur</option>
+                                            <option value="0">Homna</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.placeDetails<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4">@Model.Lang.dateAndTime<span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="datetime" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <button type="button" class="btn btn-success float-right"><i class="fa fa-save"></i></button>
+            <br/>
+        </form>
+    </div>
+</section>
+

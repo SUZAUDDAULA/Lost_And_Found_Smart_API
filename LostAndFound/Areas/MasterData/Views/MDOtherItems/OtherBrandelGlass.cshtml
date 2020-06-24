@@ -1,0 +1,200 @@
+﻿
+@model MDOtherItemViewModel
+@{
+    ViewData["Title"] = "Master Data";
+}
+
+<section style="text-align: center">
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h5 class="font-weight-bold" style="color: black">Other Brand Glass Type</h5>
+        </div>
+        <div class="card-body">
+            <form asp-area="MasterData" asp-controller="MDOtherItems" asp-action="OtherBrand" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9">
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Name English <span style="color:red">*</span></label>
+                            <div class="col-md-5">
+                                <input type="text" id="typeName" name="typeName" class="form-control" required />
+                                <input type="hidden" id="id" name="id" value="0" />
+                                <input type="hidden" id="brandFor" name="brandFor" value="glass" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Name Bangla <span style="color:red">*</span></label>
+                            <div class="col-md-5">
+                                <input type="text" name="typeNameBn" id="typeNameBn" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Short Order <span style="color:red">*</span></label>
+                            <div class="col-md-5">
+                                <input type="text" name="shortOrder" id="shortOrder" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Image</label>
+                            <div class="col-md-5" style="float:left;">
+                                <img id="img" height="150" width="140" class="img-circle" /><br />
+                                <input type="file" name="img" id="formFile" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div style="height:20px;"></div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0 row">
+                        <button type="button" onclick="Refresh()" class="btn btn-warning">
+                            Refresh
+                        </button> &nbsp;&nbsp;
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h5 class="font-weight-bold" style="color: black;">Other Brand Jwellary Type List</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <table id="tblVehicleList" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name English</th>
+                                <th>Name Bangla</th>
+                                <th>Brand</th>
+                                <th>Img</th>
+                                <th>Short Order</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var data in Model.otherBrands)
+                            {
+                                <tr>
+                                    <td>@data.brandName</td>
+                                    <td>@data.brandNameBn</td>
+                                    <td>@data.brandFor</td>
+                                    <td><img src="/@data.imagePath" width="50" height="50" /></td>
+                                    <td>@data.shortOrder</td>
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="Edit(@data.Id,'@data.brandName','@data.brandNameBn',@data.shortOrder, '@data.imagePath')" title="Edit" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                        <a href="javascript:void(0)" onclick="Delete(@data.Id)" title="Delete" class="btn btn-danger"><i class="fas fa-trash-alt" s></i></a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="height:350px;"></div>
+</section>
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#tblVehicleList').DataTable();
+
+            $("#formFile").change(function () {
+                var fileSize = (this.files[0].size);
+                var file = this.files[0];
+                var fileType = file["type"];
+                var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+                if ($.inArray(fileType, validImageTypes) < 0) {
+                    swal('Attention!', 'Uploaded photo must be a image type!', 'warning');
+                    return false;
+                } else if (fileSize > 300000) {
+                    swal('Attention!', 'Photo size must be less then or equal 20kb.', 'warning');
+                    return false;
+                }
+
+                readPictureURL(this);
+
+            });
+
+        });
+
+        function Edit(id, nameEnglish, nameBangla, shortOrder, imagePath) {
+
+            $('#id').val(id);
+            $('#typeName').val(nameEnglish);
+            $('#typeNameBn').val(nameBangla);
+            $('#shortOrder').val(shortOrder);
+            $('#img').attr('src', imagePath);
+
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+
+        function Refresh() {
+            location.reload();
+        }
+
+        function Delete(id) {
+            swal({
+                title: 'Are you sure?', text: "You want to save this data!", type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, save it!'
+            }).then(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/MasterData/MDOtherItems/DeleteOtherBrand",
+                    data: { id: id },
+                    success: function (res) {
+                        swal({
+                            title: 'Success!',
+                            text: 'Deleted Successfully!',
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok!'
+                        }).then(function () {
+                            window.location.href = "/MasterData/MDOtherItems/OtherBrandelGlass";
+                        });
+
+                    },
+                    error: function (s, err) {
+                        swal('Attention!', 'Unable to Delete! ' + err, 'warning');
+                    }
+                });
+            });
+        }
+
+        function readPictureURL(input) {
+            if (input.files && input.files[0]) {
+                var filerdr = new FileReader();
+                filerdr.onload = function (e) {
+                    $('#img').attr('src', e.target.result);
+                }
+                filerdr.readAsDataURL(input.files[0]);
+            }
+        }
+
+    </script>
+}
+

@@ -1,0 +1,112 @@
+﻿
+@model SorothalViewModel
+@{
+    ViewData["Title"] = "Surrending";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<section>
+    <div class="container">
+
+        <form id="myForm" asp-area="Admin" asp-controller="SorothalReport" asp-action="Index" method="post">
+            <div class="card">
+
+                <div class="card-header">
+                    <h5 class="font-weight-bold" style="color: black">@Model.Lang.title01</h5>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label for="distric" class="col-form-label col-md-4">@Model.Lang.district <span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="distric" id="distric">
+                                            <option value="0">select distric</option>
+                                            <option value="1">Dhaka</option>
+                                            <option value="2">Cumilla</option>
+                                            <option value="3">Chittagong</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label for="thana" class="col-form-label col-md-4">@Model.Lang.thana <span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="thana" id="thana">
+                                            <option value="0">select thana</option>
+                                            <option value="1">Homna</option>
+                                            <option value="2">Cumilla Sadar</option>
+                                            <option value="3">Khilgoang</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label for="infoType" class="col-form-label col-md-4">@Model.Lang.infoType <span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="infoType" id="infoType">
+                                            <option value="0">select information type</option>
+                                            <option value="1">GD</option>
+                                            <option value="2">case</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label for="infoNum" class="col-form-label col-md-4">@Model.Lang.infoNum <span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="infoNum" id="infoNum" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label for="date" class="col-form-label col-md-4">@Model.Lang.date <span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                        <input type="date" name="date" id="date" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group row">
+                                    <label for="time" class="col-form-label col-md-4">@Model.Lang.time <span style="color: red">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="time" name="time" id="time" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <br />
+            <button type="submit" class="btn btn-success float-right">@Model.Lang.nextBtn</button>
+
+        </form>
+        <div style="height:300px;"></div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+
+        });
+
+       
+    </script>
+}

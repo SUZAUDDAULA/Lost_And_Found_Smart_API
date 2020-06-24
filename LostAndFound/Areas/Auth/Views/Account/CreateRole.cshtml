@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewData["Title"] = "CreateRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 1;
+
+}
+
+<br />
+<section>
+    <div class="card">
+        <div class="card-header">
+            <h5 style="color:black; font-weight:bold">Role</h5>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form id="myForm">
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Role Name <span style="color:red">*</span></label>
+                        <div class="col-8">
+                            <input type="hidden" name="Id" id="Id" class="form-control" />
+                            <input type="text" name="name" id="name" class="form-control" />
+                        </div>
+                    </div>
+                    <button type="button" onclick="formSubmit()" class="btn btn-success" style="float:right; margin-top:5px; margin-left: 5px;"><i class="fas fa-save"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h5 style="color:black; font-weight:bold">Roles List</h5>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <table class="table table-bordered" id="userRoleTable">
+                    <thead>
+                        <tr>
+                            <th>SL#</th>
+                            <th>Role Name</th>
+                            <th>Action</th>
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.identityRoles)
+                        {
+
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.Name</td>
+                                <td></td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#userRoleTable").DataTable();
+
+    });
+
+
+    function formSubmit()
+    {
+
+        var myData = $("#myForm").serialize();
+
+        var name = $("#name").val();
+
+        if (name == null || name == '') {
+
+            swal('Warning', 'Please you must be enter a Role Name!', 'warning');
+            return false;
+        }
+
+
+        $.ajax({
+
+            url: '@Url.Action("CreateRole", "Auth")',
+            type: "post",
+            data: myData,
+            success: function (response) {
+
+                if (response == "success") {
+                    swal({
+                        title: 'Success!', text: 'Saved Successfully!', type: 'success', showCancelButton: false, confirmButtonColor: '#3085d6', confirmButtonText: 'Ok!',
+                    }).then(function () {
+                        window.location.href = "/Auth/Account/CreateRole";
+                    });
+                } else {
+                    swal('Warning!', 'Unable to save!', 'warning');
+                }
+            }
+        });
+
+    }
+
+</script>    
+    
+}
+

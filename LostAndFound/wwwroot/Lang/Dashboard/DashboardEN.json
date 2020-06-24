@@ -1,0 +1,13 @@
+{
+  "title01": "Your History",
+  "addBtn": "Add New",
+  "searchBtn": "Search",
+  "date": "Date",
+  "trackingNumber": "Tracking Number",
+  "status": "Status",
+  "report": "Report",
+  "rejected": "Rejected",
+  "complaint": "Complaint",
+  "investigation": "Investigation",
+  "finished": "Finished"
+}

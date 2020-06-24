@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.PageHeading = "User Access Control";
+}
+
+
+<style>
+    /*Adding some css for looks good*/
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+        font-weight: bold;
+    }
+
+    span.bottom {
+        display: block;
+        color: green;
+        font-size: 90%;
+    }
+</style>
+
+<br />
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="font-weight-bold">User Page Access Authentication </h5>
+        </div>
+        <div class="card-body container">
+            <div class="form-group row">
+                <div class="col-md-3"></div>
+                <label class="col-md-2">User Type<span style="color:red">*</span></label>
+                <div class="col-md-4">
+                    <select class="form-control" id="UserTypeID" placeholder="User Type" name="userTypeId" required></select>
+                    <br /><button id="btnSave" class="btn btn-success fa-pull-right"><i class="fa fa-save"></i></button>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h5 class="font-weight-bold">Page List</h5>
+        </div>
+        <div class="card-body">
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="data-table-row-grouping" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th> Module</th>
+                                    <th> Menu</th>
+                                    <th>Chield Menu</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script type="text/javascript">
+
+    function SaveUserMenuAccess()
+    {
+        //$('#AjaxLoader').show();
+        var AllMenuId = new Array();
+        var UserTypeId = $("#UserTypeID").val();
+
+        var $allMenu = $(".clNameOption");
+        $allMenu.each(function () {
+            var value = $(this).val();
+            if ($("#chk" + value).is(":checked") == true)
+            {
+                AllMenuId[AllMenuId.length] = parseInt(value);
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("SaveUserMenuAccess", "UserAssignPage")',
+            type: 'POST',
+            data: { UserTypeIds: UserTypeId, AllMenuIds: AllMenuId }
+        })
+            .done(function () {
+                location.reload();
+                alert("Save Successfully");
+            })
+            .fail(function () {
+                alert("Unable to Save. Please Try Again");
+            });
+
+    }
+
+    function fnCreateRack(response) {
+
+        console.log(response);
+    }
+
+    function GetUserMenuAccess() {
+        var userRoleId = $("#UserTypeID").val();
+
+        if (userRoleId != null && userRoleId !="")
+        {
+            //$('#AjaxLoader').show();
+
+            $.ajax({
+                url: "/Auth/UserAssignPage/GetUserMenuAccess",
+                type: 'get',
+                data: { roleId: userRoleId},
+                success: function (UserMenu) {
+
+                    var Index = 1;
+                    var dtTable = $("#data-table-row-grouping");
+                    var tableBody = dtTable.find('tbody');
+                    tableBody.empty();
+                
+                    $.each(UserMenu, function (index, E) {//MenuId
+
+                        if(E.parentID !=0)
+                        {
+                            if (E.access == "Yes") {
+                                if (E.parentMenu != "")
+                                {
+                                    tableBody.append(
+                                          '<tr>' +
+                                        '<td>' + Index + '</td>' +
+                                        '<td><b>' + E.moduleName + '</b></td>' +
+                                          '<td><b>' + E.parentMenu + '</b></td>' +
+                                        '<td>' + E.nameOption + '<input type="text" id="txtNameOption' + E.navbarId + '" class ="clNameOption" style="display:none" value="' + E.navbarId + '"/></td>' +
+                                        '<td><input type="checkbox" checked="checked" style="width:20px;height:20px" id="chk' + E.navbarId + '"  class="js-switch" /></td>' +
+                                          '</tr>')
+                                }
+                                else
+                                {
+                                    tableBody.append(
+                                          '<tr>' +
+                                        '<td>' + Index + '</td>' +
+                                        '<td><b>' + E.moduleName + '</b></td>' +
+                                          '<td><b>' + E.parentMenu + '</b></td>' +
+                                        '<td>' + E.nameOption + '<input type="text" id="txtNameOption' + E.navbarId + '" class ="clNameOption" style="display:none" value="' + E.navbarId + '"/></td>' +
+                                        '<td><input type="checkbox" checked="checked" style="width:20px;height:20px" id="chk' + E.navbarId + '"  class="js-switch" /></td>' +
+                                          '</tr>')
+                                }
+
+                            }
+                            else {
+                                if (E.parentMenu != "")
+                                {
+                                    tableBody.append(
+                                            '<tr>' +
+                                        '<td>' + Index + '</td>' +
+                                        '<td><b>' + E.moduleName + '</b></td>' +
+                                        '<td><b>' + E.parentMenu + '</b></td>' +
+                                        '<td>' + E.nameOption + '<input type="text" id="txtNameOption' + E.navbarId + '" class ="clNameOption" style="display:none" value="' + E.navbarId + '"/></td>' +
+                                        '<td><input type="checkbox" id="chk' + E.navbarId + '" class="js-switch" style="width:20px;height:20px" /></td>' +
+                                            '</tr>')
+                                }
+                                else
+                                {
+                                    tableBody.append(
+                                            '<tr>' +
+                                        '<td>' + Index + '</td>' +
+                                        '<td><b>' + E.moduleName + '</b></td>' +
+                                            '<td><b>' + E.parentMenu + '</b></td>' +
+                                        '<td>' + E.nameOption + '<input type="text" id="txtNameOption' + E.navbarId + '" class ="clNameOption" style="display:none" value="' + E.navbarId + '"/></td>' +
+                                        '<td><input type="checkbox" id="chk' + E.navbarId + '" class="js-switch"  style="width:20px;height:20px"/></td>' +
+                                            '</tr>')
+                                }
+
+                            }
+
+                            Index = Index+1;
+                        }
+                        $('#AjaxLoader').hide();
+                    });
+                },
+                error: function (request, status, error) {
+                    $('#AjaxLoader').hide();
+                    alert(request.statusText + "/" + request.statusText + "/" + error);
+                }
+            });
+        }
+        else
+        {
+            $("#data-table-row-grouping tbody tr").empty();
+        }
+    }
+
+
+    function Getusertype() {
+        $('#UserTypeID').empty();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetUserType", "UserAssignPage")',
+                dataType: 'json',
+                data: {},
+                success: function (districts) {
+
+                    $('#UserTypeID').append('<option value="">Select User Role</option>');
+                    $.each(districts, function (i, divis) {
+                        $('#UserTypeID').append('<option value="' + divis.Id + '">' + divis.Name + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to Job Data.' + ex);
+                }
+            });
+    }
+
+    function SaveUserMenu()
+    {
+        $('#AjaxLoader').show();
+        var AllMenuId = [];
+
+        var $allMenu = $(".clNameOption");
+        $allMenu.each(function () {
+            var value = $(this).val();
+            if ($("#chk" + value).is(":checked") == true)
+            {
+                AllMenuId.push({
+                    navbarId: parseInt(value)
+                });
+            }
+        });
+
+        $.ajax({
+            contentType: "application/json; charset=utf-8",
+            url: '@Url.Action("SaveUserMenuAccess", "UserAssignPage", "http")',
+            type: "POST",
+            dataType: 'json',
+            async: true,
+            data: JSON.stringify({
+                userTypeId: $("#UserTypeID").val(),
+                MenuList: AllMenuId
+            }),
+            success: function (result) {
+                $('#AjaxLoader').hide();
+                alert("Saved Successfully");
+            },
+            error: function () {
+                $('#AjaxLoader').hide();
+                alert("Fail to save");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        Getusertype();
+        $("#UserTypeID").change(function () {
+            GetUserMenuAccess();
+
+        });
+        $("#btnSave").on("click", SaveUserMenuAccess);
+
+    });
+
+
+</script>
+
+
+
+
+
+

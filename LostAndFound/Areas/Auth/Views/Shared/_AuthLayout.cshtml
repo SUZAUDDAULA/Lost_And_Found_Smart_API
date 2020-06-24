@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutInitial.cshtml";
+}
+
+@section Style{
+    
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /*for tab control*/
+        div.login-logout-tab div.card-header {
+            padding: 0px 0px 12px 0px;
+        }
+
+        div.login-logout-tab ul.nav-tabs {
+            margin: 0px 0px -12px 0px;
+        }
+
+        div.login-logout-tab li.nav-item {
+            width: 50%;
+        }
+
+        div.login-logout-tab a.nav-link {
+            font-size: 25px;
+            color: #495057;
+            text-align: center;
+        }
+
+        div.card-content {
+            padding: 10px 20px;
+        }
+
+        /*login form*/
+        div.login-form-icon {
+            text-align: center;
+        }
+
+        /* Wrapping element */
+        /* Set some basic padding to keep content from hitting the edges */
+        .body-content {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        /* Carousel */
+        .carousel-caption p {
+            font-size: 20px;
+            line-height: 1.4;
+        }
+
+        /* Make .svg files in the carousel display properly in older browsers */
+        .carousel-inner .item img[src$=".svg"] {
+            width: 100%;
+        }
+    </style>
+
+    @RenderSection("StyleAuth", required: false)
+}
+
+
+
+@RenderBody()
+
+@section Scripts{
+    @RenderSection("ScriptsAuth", required: false)
+}
+

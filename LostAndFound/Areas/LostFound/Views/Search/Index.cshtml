@@ -1,0 +1,69 @@
+﻿@model SearchViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section style="text-align: center">
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <h5 class="font-weight-bold" style="color: black">@Model.searchLn.searchTitle</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-9">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">@Model.searchLn.searchType<span style="color: red">*</span></label>
+                        <div class="col-md-5">
+                            <select id="searchType" class="form-control">
+                                <option value="1">জাতীয় পরিচয়পত্র </option>
+                                <option value="2">পরীক্ষার প্রবেশপত্র </option>
+                                <option value="3">শিক্ষাগত পরিচয়পত্র </option>
+                                <option value="4">অফিস পরিচয়পত্র </option>
+                                <option value="5">ব্যাঙ্কিং পেপার </option>
+                                <option value="6">মোবাইল ফোন সেট </option>
+                                <option value="7">কম্পিউটার</option>
+                                <option value="8">ট্যাবলেট পিসি</option>
+                                <option value="9">ঘড়ি</option>
+                                <option value="10">টিভি</option>
+                                <option value="11">চালানপত্র</option>
+                                <option value="12">শিক্ষাগত সার্টিফিকেট</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">@Model.searchLn.searchNo</label>
+                        <div class="col-md-5">
+                            <input type="text" id="searchNo" name="searchNo" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+                  
+                    
+               
+                <div style="height:20px;"></div>
+                <div class="form-group row">
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0 row">
+                        <button class="btn btn-dark">
+                            Refresh
+                        </button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-info">
+                            @Model.searchLn.searchButton
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div style="height:350px;"></div>
+</section>
+

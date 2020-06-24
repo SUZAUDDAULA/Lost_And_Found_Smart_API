@@ -1,0 +1,97 @@
+﻿
+@model LostAndFound.Areas.ReportORApplication.Models.DocumetViewModel 
+
+@{
+    ViewData["Title"] = "DetailsDocumet";
+}
+
+
+<br />
+<section>
+    <div class="container">
+        <form id="myForm" asp-area="ReportORApplication" asp-controller="NewApplication" asp-action="DetailsDocumet" method="post">
+            @if (ViewBag.check == 2)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="font-weight-bold" style="color: black">@Model.Lang.personTitle</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row ">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">@Model.Lang.documentType<span style="color: red">*</span></label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" name="" id="">
+                                                <option value="0">select document type</option>
+                                                <option value="1">NID</option>
+                                                <option value="2">Birth</option>
+                                                <option value="2">Passport</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">@Model.Lang.number<span style="color: red">*</span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" name="" id="" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-4">@Model.Lang.mobile<span style="color: red">*</span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" name="" id="" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <br />
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="font-weight-bold" style="color: black">@Model.Lang.documentTitle</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row container">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-4">@Model.Lang.type<span style="color: red">*</span></label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="" id="">
+                                        <option value="0">select document type</option>
+                                        <option value="1">NID</option>
+                                        <option value="2">Birth</option>
+                                        <option value="2">Passport</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-4">@Model.Lang.description<span style="color: red">*</span></label>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <button type="submit" class="btn btn-success float-right">@Model.Lang.nextBtn</button>
+            <br /><br />
+
+        </form>
+    </div>
+</section>

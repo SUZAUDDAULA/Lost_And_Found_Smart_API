@@ -1,0 +1,15 @@
+{
+  "fullName": "Full Name",
+  "citizenship": "Citizenship",
+  "nationalIdentityType": "National Identity Type",
+  "nationalIdentityNo": "NID No",
+  "addressType": "Address As Like National Identity?",
+  "imagePath": "Photo",
+  "phoneNumber": "PhoneNumber",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "registrationForm": "Registration Form",
+  "yes": "Yes",
+  "no": "No"
+}

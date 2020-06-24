@@ -1,0 +1,211 @@
+﻿
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "AssignRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int i = 1;
+}
+
+<br />
+<section>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="font-weight-bold" style="color:black">User List</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-bordered" id="userListTable">
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>User Type</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var data in Model.aspNetUsersViewModels)
+                    {
+                        <tr>
+                            <td>@data.UserName</td>
+                            <td>@data.Email</td>
+                            <td>@data.UserTypeName</td>
+                            <td>
+                                <a class="btn btn-success" onclick="AssignRole('@data.ID','@data.UserName','@data.Email')" href="javascript:void(0)">Assign Role</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br />
+    <div class="card" id="userInfoTable">
+        <div class="card-header">
+            <h5 class="font-weight-bold" style="color:black">User Information</h5>
+        </div>
+        <div class="card-body">
+            <form id="assignRoleForm">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label class="col-md-4 col-lg-4 col-sm-12" style="color:black;" for="UserName">User ID : </label>
+                            <div class="col-md-8 col-lg-8 col-sm-12">
+                                <input type="text" class="form-control" id="UserName" name="UserName" autocomplete="off" data-parsley-required="true" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label class="col-md-4 col-lg-4 col-sm-12" style="color:black;" for="Email">Email :</label>
+                            <div class="col-md-8 col-lg-8 col-sm-12">
+                                <input type="text" class="form-control" id="Email" name="Email" autocomplete="off" data-parsley-required="true" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <table class="table table-bordered" id="assignRoleTable">
+                    <thead>
+                        <tr>
+                            <th>#SL</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+                </table>
+                <table class="table table-bordered" id="removeRoleTable">               
+                    <tbody></tbody>
+                </table>
+                <br /><br />
+                <hr />
+                <input type="button" onclick="btnSubmit()" value="Submit" class="btn btn-info btn-lg" style="width:90px;float:right" />
+            </form>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#userListTable").DataTable();
+            $("#assignRoleTable").DataTable();
+
+            $("#userInfoTable").hide();
+            //$("#removeRoleTable").hide();
+
+        });
+
+
+        function AssignRole(ID, UserName, Email) {
+
+            $("#Email").val(Email);
+            $("#UserName").val(UserName);
+
+
+            $("#userInfoTable").show();
+
+            var dtTable = $("#assignRoleTable");
+            var tbody = dtTable.find('tbody');
+            tbody.empty();
+
+            $.ajax({
+                url: "/Auth/Account/FilterRoleByUser",
+                type: "post",
+                data: { id: ID },
+                success: function (response) {
+
+                    $.each(response, function (i, e) {
+
+                        var tr;
+
+                        if (e.roleId == e.arRoleId) {
+
+                            tr = '<tr>' +
+                                '<td>' + i + '</td>' +
+                                '<td>' + e.roleName + '</td>' + 
+                                '<td>' +
+
+                                '<input type="checkbox" checked onclick="removeRole(' + "'" + e.roleName + "'" + ')" value="' + e.roleName + '" class="form-control" id="role" name="assignRoles" />' +
+                                '</td>' +
+                                '</tr>';
+                        }
+                        else {
+
+                            tr = '<tr>' +
+                                '<td>' + i + '</td>' +
+                                '<td>' + e.roleName + '</td>' +
+                                '<td>' +
+                                '<input type="checkbox" class="form-control"  value="' + e.roleName + '" id="role" name="assignRoles" />' +
+                                '</td>' +
+                                '</tr>';
+                        }
+                        tbody.append(tr);
+
+                    });
+                }
+            })
+
+
+        }
+
+        function btnSubmit() {
+
+            var myData = $("#assignRoleForm").serialize();
+
+            $.ajax({
+
+                url: "/Auth/Account/AssignRole",
+                type: "post",
+                data: myData,
+                success: function (response) {
+
+                    if (response == "success") {
+                        swal({
+                            title: 'Success!', text: 'Role Update Successfully', type: 'success', confirmButtonColor: '#3085d6', confirmButtonText: 'Ok!',
+                        }).then(function () {
+                            window.location.href = "/Auth/Account/AssignRole";
+                        });
+                    }
+                }
+            })
+
+        }
+
+        function removeRole(roleName) {
+
+
+            var dtTable = $("#removeRoleTable");
+            var tbody = dtTable.find('tbody');
+
+            var tr = '<tr>' +
+                '<td>' +
+                '<input type="hidden" class="form-control" value="' + roleName + '" id="removeRoles" name="removeRoles" />' +
+                '</td>' +
+                '</tr>';
+
+            tbody.append(tr);    
+
+            //swal({
+            //    title: 'Are you sure?', text: 'Do you want to Remove this Role' + ' "' + roleName + '" ' + ' for ' + UserName, type: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Yes, remove it!'
+            //}).then(function () {
+
+
+            //});
+
+        }
+
+
+    </script>
+
+}
