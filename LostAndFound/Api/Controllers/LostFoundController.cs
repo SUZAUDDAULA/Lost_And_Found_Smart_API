@@ -460,11 +460,11 @@ namespace LostAndFound.Api.Controllers
             return result;
         }
 
-        [HttpGet("{userName}/{vehicleTypeId}")]
+        [HttpGet("{userName}/{gdTypeId}/{vehicleTypeId}")]
         [AllowAnonymous]
-        public async Task<IEnumerable<NewsFeedViewModel>> GetALLNewFeedsInfo(string userName,int vehicleTypeId)
+        public async Task<IEnumerable<NewsFeedViewModel>> GetALLNewFeedsInfo(string userName,int gdTypeId,int vehicleTypeId)
         {
-            var result = await lostAndFoundService.GetALLNewFeedsInfo(userName,vehicleTypeId);
+            var result = await lostAndFoundService.GetALLNewFeedsInfo(userName,gdTypeId,vehicleTypeId);
             return result;
         }
 

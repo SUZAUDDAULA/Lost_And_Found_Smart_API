@@ -251,6 +251,7 @@ namespace LostAndFound.Api.Controllers
 
         //POST: api/AccountInfo/ProfileUpdate
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> ProfileUpdate(RegisterViewModel model)
         {
 
@@ -278,16 +279,16 @@ namespace LostAndFound.Api.Controllers
                 }
                 else if (model.userFrom == "mobile")
                 {
-                    string imagePath = string.Empty;
-                    if (model.formFile != null)
-                    {
-                        string fileName;
-                        string message = FileSave.SaveImage(out fileName, "Upload/GenarelUser", model.formFile);
-                        if (message == "success")
-                        {
-                            imagePath = fileName;
-                        }
-                    }
+                    //string imagePath = string.Empty;
+                    //if (model.formFile != null)
+                    //{
+                    //    string fileName;
+                    //    string message = FileSave.SaveImage(out fileName, "Upload/GenarelUser", model.formFile);
+                    //    if (message == "success")
+                    //    {
+                    //        imagePath = fileName;
+                    //    }
+                    //}
                     user.PhoneNumber = model.PhoneNumber;
                     user.Email = model.Email;
                     user.userTypeId = 3;
@@ -296,7 +297,7 @@ namespace LostAndFound.Api.Controllers
                     user.NationalIdentityType = model.NationalIdentityType;
                     user.NationalIdentityNo = model.NationalIdentityNo;
                     user.AddressType = model.AddressType;
-                    user.ImagePath = imagePath;
+                    user.ImagePath = model.imagePath;
                     user.isVarified = 1;
                     user.updatedAt = DateTime.Now;
                     user.userFrom = model.userFrom;
@@ -348,6 +349,15 @@ namespace LostAndFound.Api.Controllers
             }
 
             return Ok(result);
+        }
+
+        //POST: api/AccountInfo/ForgetPassword
+        [HttpGet("{userName}")]
+        public async Task<IActionResult> GetUserInfo(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+
+            return Ok(user);
         }
 
         //POST: api/AccountInfo/ResetPassword

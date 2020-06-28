@@ -118,7 +118,7 @@ namespace LostAndFound.Services.LostFoundServices
             return await _context.GDInformation.Include(x=>x.gDType).Include(x=>x.productType).Where(x=>x.ApplicationUserId== userId).ToListAsync();
         }
 
-        public async Task<IEnumerable<NewsFeedViewModel>> GetALLNewFeedsInfo(string userId,int vehicleTypeId)
+        public async Task<IEnumerable<NewsFeedViewModel>> GetALLNewFeedsInfo(string userId,int gdTypeId,int vehicleTypeId)
         {
             //TimeSpan span = (DateTime.Now - DateTime.Now);
             //string datetime = "just now";
@@ -144,7 +144,7 @@ namespace LostAndFound.Services.LostFoundServices
                          from t in vtt.DefaultIfEmpty()
                          join a in _context.AttachmentInformation on g.Id equals a.gDInformationId
                          join u in _context.Users on g.ApplicationUserId equals u.Id
-                         where v.vehicleTypeId== vehicleTypeId
+                         where v.vehicleTypeId== vehicleTypeId && g.gDTypeId==gdTypeId
                         select new NewsFeedViewModel
                          {
                              userName = u.UserName,
