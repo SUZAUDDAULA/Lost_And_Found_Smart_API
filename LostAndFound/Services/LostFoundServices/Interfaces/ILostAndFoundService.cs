@@ -68,7 +68,7 @@ namespace LostAndFound.Services.LostFoundServices.Interfaces
         Task<IEnumerable<string>> GetAllVehicleModelNo();
         Task<IEnumerable<VehicleInformation>> GetVehicleInformationBySearching(int? typeId, int? brandId, string modelNo, string regiNo, string engineNo, string chesisNo, string cc, int? colorId, string userId);
         Task<int> DeleteVehicleInformationByGDId(int gdId);
-        Task<IEnumerable<NewsFeedViewModel>> GetALLNewFeedsInfo(string userId, int vehicleTypeId);
+        Task<IEnumerable<NewsFeedViewModel>> GetALLNewFeedsInfo(string userId, int gdTypeId, int vehicleTypeId);
         #endregion
 
         #region Man Information
