@@ -730,14 +730,13 @@ namespace LostAndFound.Services.LostFoundServices
             }
 
         }
-        public async Task<IEnumerable<Likes>> GetAllLikesById(int id)
+        public async Task<IEnumerable<Likes>> GetAllLikes()
         {
             return await _context.Likes
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.vehicle)
                 .Include(x => x.attachment).ToListAsync();
         }
-
         public async Task<Likes> GetLikesById(int id)
         {
             return await _context.Likes
@@ -745,8 +744,6 @@ namespace LostAndFound.Services.LostFoundServices
                 .Include(x => x.vehicle)
                 .Include(x => x.attachment).FirstOrDefaultAsync();
         }
-
-
         public async Task<int> DeleteLikesById(int id)
         {
             _context.Likes.Remove(_context.Likes.Find(id));
