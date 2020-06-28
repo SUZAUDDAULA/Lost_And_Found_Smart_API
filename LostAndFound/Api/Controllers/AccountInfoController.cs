@@ -70,69 +70,87 @@ namespace LostAndFound.Api.Controllers
             try
             {
                 string returnResult = "success";
-                string imagePath = string.Empty;
-                var jwt = new object();
-                if (model.formFile != null)
+                var ujwt = new object();
+                int otpCode = 0;
+                ApplicationUser user = new ApplicationUser();
+                if (model.userFrom == "google")
                 {
-                    string fileName;
-                    string message = FileSave.SaveImage(out fileName, "Upload/GenarelUser", model.formFile);
-
-                    if (message == "success")
+                    var gUser = await _userManager.FindByNameAsync(model.Email);
+                    if (gUser != null && (await _userManager.CheckPasswordAsync(gUser, model.Password)))
                     {
-                        imagePath = fileName;
+                        var roles = await _userManager.GetRolesAsync(gUser);
+                        var response = new
+                        {
+                            auth_token = await _jwtFactory.GenerateToken(gUser.UserName, gUser.Id, roles)
+                        };
+                        var gjwt = JsonConvert.SerializeObject(response);
+                        var gobj = new ReturnObject
+                        {
+                            jwt = gjwt,
+                            userInfo = gUser
+                        };
+                        return new OkObjectResult(gobj);
+                    }
+                    else
+                    {
+                        user.UserName = model.UserName;
+                        user.PhoneNumber = model.PhoneNumber;
+                        user.Email = model.Email;
+                        user.userTypeId = 3;
+                        user.FullName = model.FullName;
+                        user.ImagePath = model.imagePath;
+                        user.userFrom = model.userFrom;
+                        user.AddressType = model.AddressType;
+                        user.Citizenship = model.Citizenship;
+                        user.NationalIdentityType = model.NationalIdentityType;
+                        user.isVarified = 1;
+                        user.otpCode = otpCode.ToString();
+                        user.createdAt = DateTime.Now;
                     }
                 }
-
-                int _min = 1000;
-                int _max = 9999;
-                Random _rdm = new Random();
-                int otpCode = _rdm.Next(_min, _max);
-                var user = new ApplicationUser
+                else if (model.userFrom == "mobile")
                 {
-                    UserName = model.PhoneNumber,
-                    PhoneNumber = model.PhoneNumber,
-                    Email = model.Email,
-                    userTypeId = 3,
-                    Citizenship = model.Citizenship,
-                    FullName = model.FullName,
-                    NationalIdentityType = model.NationalIdentityType,
-                    NationalIdentityNo = model.NationalIdentityNo,
-                    AddressType = model.AddressType,
-                    ImagePath = imagePath,
-                    otpCode = otpCode.ToString(),
-                    isVarified = 0,
-                    createdAt = DateTime.Now
-                };
+                    
+                    string imagePath = string.Empty;
+                    if (model.formFile != null)
+                    {
+                        string fileName;
+                        string message = FileSave.SaveImage(out fileName, "Upload/GenarelUser", model.formFile);
+                        if (message == "success")
+                        {
+                            imagePath = fileName;
+                        }
+                    }
 
-
+                    int _min = 1000;
+                    int _max = 9999;
+                    Random _rdm = new Random();
+                    otpCode = _rdm.Next(_min, _max);
+                    user.UserName = model.UserName;
+                    user.PhoneNumber = model.PhoneNumber;
+                    user.Email = model.Email;
+                    user.userTypeId = 3;
+                    user.Citizenship = model.Citizenship;
+                    user.FullName = model.FullName;
+                    user.NationalIdentityType = model.NationalIdentityType;
+                    user.NationalIdentityNo = model.NationalIdentityNo;
+                    user.AddressType = model.AddressType;
+                    user.ImagePath = imagePath;
+                    user.otpCode = otpCode.ToString();
+                    user.isVarified = 0;
+                    user.createdAt = DateTime.Now;
+                    user.userFrom = model.userFrom;
+                }
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //_logger.LogInformation("User created a new account with password.");
-
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Page(
-                    //    "/Account/OTPVarified",
-                    //    pageHandler: null,
-                    //    values: new { userId = user.Id, code = code },
-                    //    protocol: Request.Scheme);
-
-                    //await emailSenderService.SendEmail(model.Email, "Confirm your email",
-                    //$"Your Verification Code is "+otpCode+" ,Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
                     await _userManager.AddToRoleAsync(user, "General User");
                     var roles = await _userManager.GetRolesAsync(user);
                     var response = new
                     {
                         auth_token = await _jwtFactory.GenerateToken(user.UserName, user.Id, roles)
                     };
-
-                    jwt = JsonConvert.SerializeObject(response);
-                    
-                    //return new OkObjectResult(jwt);
-
-
-                    //await _userManager.AddToRoleAsync(user, model.userRole);
+                    ujwt = JsonConvert.SerializeObject(response);
                 }
                 else
                 {
@@ -142,19 +160,12 @@ namespace LostAndFound.Api.Controllers
 
                 var obj = new ReturnObject
                 {
-                    jwt = jwt,
+                    jwt = ujwt,
                     otpCode = otpCode.ToString(),
                     message = returnResult,
                     userInfo=user
                 };
-
-                //_db.Database.ExecuteSqlCommand("sp_UpdateAspNetUsers @p0,@p1,@p2,@p3", model.userid, model.UserTypeId, model.Name, model.Email);
-                //await _userManager.RemovePasswordAsync(user);
-                //await _userManager.AddPasswordAsync(user, model.Password);
-                //return RedirectToAction("Register", "Account", new { Area = "Auth" });
-
                 return new OkObjectResult(obj);
-
             }
             catch (Exception ex)
             {
@@ -228,6 +239,79 @@ namespace LostAndFound.Api.Controllers
 
                 return new OkObjectResult(returnResult);
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
+
+        //POST: api/AccountInfo/ProfileUpdate
+        [HttpPost]
+        public async Task<IActionResult> ProfileUpdate(RegisterViewModel model)
+        {
+
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            try
+            {
+                var ujwt = new object();
+                int otpCode = 0;
+                ApplicationUser user = await _userManager.FindByNameAsync(model.UserName);
+                if (model.userFrom == "google")
+                {
+                    user.PhoneNumber = model.PhoneNumber;
+                    user.Email = model.Email;
+                    user.userTypeId = 3;
+                    user.FullName = model.FullName;
+                    user.ImagePath = model.imagePath;
+                    user.userFrom = model.userFrom;
+                    user.AddressType = model.AddressType;
+                    user.Citizenship = model.Citizenship;
+                    user.NationalIdentityType = model.NationalIdentityType;
+                    user.isVarified = 1;
+                    user.otpCode = otpCode.ToString();
+                    user.createdAt = DateTime.Now;
+                    
+                }
+                else if (model.userFrom == "mobile")
+                {
+                    string imagePath = string.Empty;
+                    if (model.formFile != null)
+                    {
+                        string fileName;
+                        string message = FileSave.SaveImage(out fileName, "Upload/GenarelUser", model.formFile);
+                        if (message == "success")
+                        {
+                            imagePath = fileName;
+                        }
+                    }
+                    user.PhoneNumber = model.PhoneNumber;
+                    user.Email = model.Email;
+                    user.userTypeId = 3;
+                    user.Citizenship = model.Citizenship;
+                    user.FullName = model.FullName;
+                    user.NationalIdentityType = model.NationalIdentityType;
+                    user.NationalIdentityNo = model.NationalIdentityNo;
+                    user.AddressType = model.AddressType;
+                    user.ImagePath = imagePath;
+                    user.isVarified = 1;
+                    user.updatedAt = DateTime.Now;
+                    user.userFrom = model.userFrom;
+                }
+                
+                if (model.userFrom == "google")
+                {
+                    await _userManager.UpdateAsync(user);
+                    await _userManager.ChangePasswordAsync(user, model.OldPassword, model.Password);
+                }
+                else
+                {
+                    await _userManager.UpdateAsync(user);
+                }
+                var userInfo = await _userManager.FindByNameAsync(model.UserName);
+                return Ok(userInfo);
             }
             catch (Exception ex)
             {

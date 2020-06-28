@@ -11,31 +11,21 @@ namespace LostAndFound.Areas.Auth.Models
     [NotMapped]
     public class RegisterViewModel
     {
-       
         public string FullName { get; set; }
-        [Required]
         public string Citizenship { get; set; }
-        [Required]
         public int? NationalIdentityType { get; set; }
-        [Required]
         public string NationalIdentityNo { get; set; }
         public int? AddressType { get; set; }
-
         public IFormFile formFile { get; set; }
-        [Required]
         public string PhoneNumber { get; set; }
-
-        public string PassportNo { get; set; }
-        
+        public string PassportNo { get; set; }      
         public string Email { get; set; }
-
-        public int? UserTypeId { get; set; }
-        
+        public int? UserTypeId { get; set; }       
         public string userRole { get; set; }
-
         public string UserName { get; set; }
-
         public string OldPassword { get; set; }
+        public string userFrom { get; set; }
+        public string imagePath { get; set; }
 
         public string[] assignRoles { get;set;}
         public string[] removeRoles { get;set;}
