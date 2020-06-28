@@ -10,6 +10,7 @@ namespace LostAndFound.Api.Models
     public class LikesViewModel
     {
         public String ApplicationUserId { get; set; }
+        public string userName { get; set; }
         public int? vehicleId { get; set; }
         public int? attachmentId { get; set; }
         public int? statusId { get; set; }

@@ -144,7 +144,9 @@ namespace LostAndFound.Services.LostFoundServices
                          from t in vtt.DefaultIfEmpty()
                          join a in _context.AttachmentInformation on g.Id equals a.gDInformationId
                          join u in _context.Users on g.ApplicationUserId equals u.Id
-                         where v.vehicleTypeId== vehicleTypeId && g.gDTypeId==gdTypeId
+                         join l in _context.Likes.Where(x=>x.statusId==1).GroupBy(x=>x.vehicleId).Select(x=>new Likes { vehicleId=x.Key,total=x.Count()}) on v.Id equals l.vehicleId into ll
+                        from lk in ll.DefaultIfEmpty()
+                        where v.vehicleTypeId== vehicleTypeId && g.gDTypeId==gdTypeId
                         select new NewsFeedViewModel
                          {
                              userName = u.UserName,
@@ -155,7 +157,10 @@ namespace LostAndFound.Services.LostFoundServices
                              vehicleDescription = a.fileSubject,
                              vehicleTypeName = t.vehicleTypeName,
                              attachImage = a.filePath,
-                             encodedImage=a.encodedImage
+                             encodedImage=a.encodedImage,
+                             vehicleId=v.Id,
+                             attachmentId=a.Id,
+                             totalLikes=lk.total,
                          }).ToListAsync();
 
             return result;

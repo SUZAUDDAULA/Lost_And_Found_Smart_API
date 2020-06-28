@@ -679,14 +679,13 @@ namespace LostAndFound.Api.Controllers
 
         // POST: api/LostFound/SaveLikes
         [HttpPost]
-        [AllowAnonymous]
         public async Task<string> SaveLikes([FromBody]LikesViewModel model)
         {
             string msg = "error";
-
+            var User = await _userManager.FindByNameAsync(model.userName);
             Likes likes = new Likes
             {
-                ApplicationUserId = model.ApplicationUserId,
+                ApplicationUserId = User.Id,
                 vehicleId = model.vehicleId,
                 attachmentId = model.attachmentId,
                 statusId = 1
