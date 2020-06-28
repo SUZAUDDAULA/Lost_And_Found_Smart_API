@@ -676,11 +676,13 @@ namespace LostAndFound.Api.Controllers
             return result;
         }
 
-        // GET: api/LostFound/SaveLikes
+        // POST: api/LostFound/SaveLikes
         [HttpPost]
         [AllowAnonymous]
-        public async Task<int> SaveLikes([FromBody]LikesViewModel model)
+        public async Task<string> SaveLikes([FromBody]LikesViewModel model)
         {
+            string msg = "error";
+
             Likes likes = new Likes
             {
                 ApplicationUserId = model.ApplicationUserId,
@@ -689,9 +691,14 @@ namespace LostAndFound.Api.Controllers
                 statusId = 1
             };
 
-            var result = await lostAndFoundService.SaveLikes(likes);
+            int result = await lostAndFoundService.SaveLikes(likes);
 
-            return result;
+            if(result == 1)
+            {
+                msg = "success";
+            }
+
+            return msg;
         }
 
         #endregion
