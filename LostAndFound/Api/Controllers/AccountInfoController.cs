@@ -253,7 +253,6 @@ namespace LostAndFound.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ProfileUpdate(RegisterViewModel model)
         {
-
             if (!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
@@ -305,7 +304,7 @@ namespace LostAndFound.Api.Controllers
                 if (model.userFrom == "google")
                 {
                     await _userManager.UpdateAsync(user);
-                    await _userManager.ChangePasswordAsync(user, model.OldPassword, model.Password);
+                    await _userManager.ChangePasswordAsync(user, model.Password, model.ConfirmPassword);
                 }
                 else
                 {

@@ -21,7 +21,6 @@ namespace LostAndFound.Data.Entity
         public string NationalIdentityNo { get; set; }
         public int? AddressType { get; set; }
 
-        [StringLength(300)]
         public string ImagePath { get; set; }
         public string otpCode { get; set; }
         public int? isVarified { get; set; }
