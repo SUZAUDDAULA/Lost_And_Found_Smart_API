@@ -665,6 +665,37 @@ namespace LostAndFound.Api.Controllers
             }
         }
 
+        #region Likes
+
+        // GET: api/LostFound/GetAllLikes
+        [HttpGet]
+        public async Task<IEnumerable<Likes>> GetAllLikes()
+        {
+            var result = await lostAndFoundService.GetAllLikes();
+
+            return result;
+        }
+
+        // GET: api/LostFound/SaveLikes
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<int> SaveLikes([FromBody]LikesViewModel model)
+        {
+            Likes likes = new Likes
+            {
+                ApplicationUserId = model.ApplicationUserId,
+                vehicleId = model.vehicleId,
+                attachmentId = model.attachmentId,
+                statusId = 1
+            };
+
+            var result = await lostAndFoundService.SaveLikes(likes);
+
+            return result;
+        }
+
+        #endregion
+
         // GET: api/LostFound/GetManInfo/
         //[HttpGet]
         //public GDManInformationViewModel GetManInfo()
