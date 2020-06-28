@@ -27,6 +27,8 @@ namespace LostAndFound.Data.Entity
         public int? isVarified { get; set; }
 
         public int? isActive { get; set; }
+        [StringLength(50)]
+        public string userFrom { get; set; }
 
         public DateTime? createdAt { get; set; }
         [MaxLength(120)]
