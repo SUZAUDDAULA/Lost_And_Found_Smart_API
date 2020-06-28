@@ -66,7 +66,8 @@ namespace LostAndFound.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
             try
             {
                 string returnResult = "success";

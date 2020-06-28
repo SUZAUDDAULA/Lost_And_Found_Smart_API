@@ -4,14 +4,16 @@ using LostAndFound.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LostAndFound.Migrations
 {
     [DbContext(typeof(LAFDbContext))]
-    partial class LAFDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200628163052_version_likes_table_add")]
+    partial class version_likes_table_add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,8 @@ namespace LostAndFound.Migrations
                     b.Property<string>("FullName")
                         .HasMaxLength(100);
 
-                    b.Property<string>("ImagePath");
+                    b.Property<string>("ImagePath")
+                        .HasMaxLength(300);
 
                     b.Property<bool>("LockoutEnabled");
 
