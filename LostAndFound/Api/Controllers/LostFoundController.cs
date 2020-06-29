@@ -681,24 +681,45 @@ namespace LostAndFound.Api.Controllers
         [HttpPost]
         public async Task<string> SaveLikes([FromBody]LikesViewModel model)
         {
-            string msg = "error";
-            var User = await _userManager.FindByNameAsync(model.userName);
-            Likes likes = new Likes
+            try
             {
-                ApplicationUserId = User.Id,
-                vehicleId = model.vehicleId,
-                attachmentId = model.attachmentId,
-                statusId = 1
-            };
+                int statusId;
+                var User = await _userManager.FindByNameAsync(model.userName);
+                var likeInfo = await lostAndFoundService.GetLikesByUser(User.Id, (int)model.vehicleId);
+                if (likeInfo == null)
+                {
+                    Likes likes = new Likes
+                    {
+                        ApplicationUserId = User.Id,
+                        vehicleId = model.vehicleId,
+                        attachmentId = model.attachmentId,
+                        statusId = 1
+                    };
+                    int result = await lostAndFoundService.SaveLikes(likes);
+                    statusId = 1;
+                }
+                else
+                {
+                    Likes likes = new Likes
+                    {
+                        Id = likeInfo.Id,
+                        ApplicationUserId = User.Id,
+                        vehicleId = model.vehicleId,
+                        attachmentId = model.attachmentId,
+                        statusId = 0
+                    };
 
-            int result = await lostAndFoundService.SaveLikes(likes);
+                    int result = await lostAndFoundService.SaveLikes(likes);
+                    statusId = 0;
+                }
 
-            if(result == 1)
-            {
-                msg = "success";
+                return statusId.ToString();
             }
-
-            return msg;
+            catch(Exception ex)
+            {
+                return "-1";
+            }
+            
         }
 
         #endregion

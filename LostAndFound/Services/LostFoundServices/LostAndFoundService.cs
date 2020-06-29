@@ -745,6 +745,10 @@ namespace LostAndFound.Services.LostFoundServices
                 .Include(x => x.vehicle)
                 .Include(x => x.attachment).ToListAsync();
         }
+        public async Task<Likes> GetLikesByUser(string userId,int vehicleId)
+        {
+            return await _context.Likes.Where(x=>x.ApplicationUserId==userId && x.vehicleId==vehicleId).FirstOrDefaultAsync();
+        }
         public async Task<Likes> GetLikesById(int id)
         {
             return await _context.Likes
