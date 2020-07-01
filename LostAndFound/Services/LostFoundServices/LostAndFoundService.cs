@@ -146,6 +146,8 @@ namespace LostAndFound.Services.LostFoundServices
                          join u in _context.Users on g.ApplicationUserId equals u.Id
                          join l in _context.Likes.Where(x=>x.statusId==1).GroupBy(x=>x.vehicleId).Select(x=>new Likes { vehicleId=x.Key,total=x.Count()}) on v.Id equals l.vehicleId into ll
                         from lk in ll.DefaultIfEmpty()
+                        join c in _context.Comments.Where(x => x.statusId == 1).GroupBy(x => x.vehicleId).Select(x => new Comments { vehicleId = x.Key, total = x.Count() }) on v.Id equals c.vehicleId into cc
+                        from cm in cc.DefaultIfEmpty()
                         where v.vehicleTypeId== vehicleTypeId && g.gDTypeId==gdTypeId
                         select new NewsFeedViewModel
                          {
@@ -161,6 +163,7 @@ namespace LostAndFound.Services.LostFoundServices
                              vehicleId=v.Id,
                              attachmentId=a.Id,
                              totalLikes=lk.total,
+                             totalComments=cm.total
                          }).ToListAsync();
 
             return result;
@@ -741,6 +744,10 @@ namespace LostAndFound.Services.LostFoundServices
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.vehicle)
                 .Include(x => x.attachment).ToListAsync();
+        }
+        public async Task<Likes> GetLikesByUser(string userId,int vehicleId)
+        {
+            return await _context.Likes.Where(x=>x.ApplicationUserId==userId && x.vehicleId==vehicleId).FirstOrDefaultAsync();
         }
         public async Task<Likes> GetLikesById(int id)
         {

@@ -96,6 +96,7 @@ namespace LostAndFound.Services.LostFoundServices.Interfaces
         Task<int> SaveLikes(Likes likes);
         Task<IEnumerable<Likes>> GetAllLikes();
         Task<Likes> GetLikesById(int id);
+        Task<Likes> GetLikesByUser(string userId, int vehicleId);
         Task<int> DeleteLikesById(int id);
         #endregion
 
