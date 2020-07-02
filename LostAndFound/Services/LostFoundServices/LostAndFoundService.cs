@@ -163,8 +163,7 @@ namespace LostAndFound.Services.LostFoundServices
                              vehicleId=v.Id,
                              attachmentId=a.Id,
                              totalLikes=lk.total,
-                             totalComments=cm.total,
-                             statusId = lk.statusId
+                             totalComments=cm.total
                          }).ToListAsync();
 
             return result;

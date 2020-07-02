@@ -52,6 +52,7 @@ namespace LostAndFound.Api.Controllers
                 var obj = new ReturnObject
                 {
                     jwt = jwt,
+                    roles = roles.FirstOrDefault(),
                     userInfo = user
                 };
 
@@ -388,6 +389,7 @@ namespace LostAndFound.Api.Controllers
             public object jwt { get; set; }
             public string otpCode { get; set; }
             public string message { get; set; }
+            public string roles { get; set; }
             public object userInfo { get; set; }
         }
 
