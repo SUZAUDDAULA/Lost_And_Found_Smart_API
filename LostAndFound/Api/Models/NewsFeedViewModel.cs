@@ -15,5 +15,6 @@
         public int? attachmentId { get; set; }
         public int? totalLikes { get; set; }
         public int? totalComments { get; set; }
+        public int? statusId { get; set; }
     }
 }
