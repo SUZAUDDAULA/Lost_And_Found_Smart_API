@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LostAndFound.Migrations
 {
-    public partial class Initialmigration : Migration
+    public partial class Commonmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -621,6 +621,27 @@ namespace LostAndFound.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "InTheEyes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    isDelete = table.Column<int>(nullable: true),
+                    createdAt = table.Column<DateTime>(nullable: true),
+                    updatedAt = table.Column<DateTime>(nullable: true),
+                    createdBy = table.Column<string>(maxLength: 250, nullable: true),
+                    updatedBy = table.Column<string>(maxLength: 250, nullable: true),
+                    name = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    nameBn = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    imagePath = table.Column<string>(type: "NVARCHAR(450)", nullable: true),
+                    shortOrder = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InTheEyes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "InTheHeads",
                 columns: table => new
                 {
@@ -1041,6 +1062,27 @@ namespace LostAndFound.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OperatingSystemTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    isDelete = table.Column<int>(nullable: true),
+                    createdAt = table.Column<DateTime>(nullable: true),
+                    updatedAt = table.Column<DateTime>(nullable: true),
+                    createdBy = table.Column<string>(maxLength: 250, nullable: true),
+                    updatedBy = table.Column<string>(maxLength: 250, nullable: true),
+                    deviceType = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    typeName = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    typeNameBn = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    shortOrder = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OperatingSystemTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OtherBrands",
                 columns: table => new
                 {
@@ -1165,6 +1207,67 @@ namespace LostAndFound.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SpecialBirthMarkBodyPartPositions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    isDelete = table.Column<int>(nullable: true),
+                    createdAt = table.Column<DateTime>(nullable: true),
+                    updatedAt = table.Column<DateTime>(nullable: true),
+                    createdBy = table.Column<string>(maxLength: 250, nullable: true),
+                    updatedBy = table.Column<string>(maxLength: 250, nullable: true),
+                    typeName = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    typeNameBn = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    shortOrder = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialBirthMarkBodyPartPositions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialBirthMarkBodyParts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    isDelete = table.Column<int>(nullable: true),
+                    createdAt = table.Column<DateTime>(nullable: true),
+                    updatedAt = table.Column<DateTime>(nullable: true),
+                    createdBy = table.Column<string>(maxLength: 250, nullable: true),
+                    updatedBy = table.Column<string>(maxLength: 250, nullable: true),
+                    bodyName = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    bodyNameBn = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    shortOrder = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialBirthMarkBodyParts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialBirthMarkTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    isDelete = table.Column<int>(nullable: true),
+                    createdAt = table.Column<DateTime>(nullable: true),
+                    updatedAt = table.Column<DateTime>(nullable: true),
+                    createdBy = table.Column<string>(maxLength: 250, nullable: true),
+                    updatedBy = table.Column<string>(maxLength: 250, nullable: true),
+                    typeName = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    typeNameBn = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    imagePath = table.Column<string>(type: "NVARCHAR(450)", nullable: true),
+                    shortOrder = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialBirthMarkTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SpecialBodyConditions",
                 columns: table => new
                 {
@@ -1203,6 +1306,26 @@ namespace LostAndFound.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Speeches", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StatusInfos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    isDelete = table.Column<int>(nullable: true),
+                    createdAt = table.Column<DateTime>(nullable: true),
+                    updatedAt = table.Column<DateTime>(nullable: true),
+                    createdBy = table.Column<string>(maxLength: 250, nullable: true),
+                    updatedBy = table.Column<string>(maxLength: 250, nullable: true),
+                    statusName = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
+                    statusNameBn = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
+                    shortOrder = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatusInfos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1485,10 +1608,11 @@ namespace LostAndFound.Migrations
                     NationalIdentityType = table.Column<int>(nullable: true),
                     NationalIdentityNo = table.Column<string>(maxLength: 100, nullable: true),
                     AddressType = table.Column<int>(nullable: true),
-                    ImagePath = table.Column<string>(maxLength: 300, nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
                     otpCode = table.Column<string>(nullable: true),
                     isVarified = table.Column<int>(nullable: true),
                     isActive = table.Column<int>(nullable: true),
+                    userFrom = table.Column<string>(maxLength: 50, nullable: true),
                     createdAt = table.Column<DateTime>(nullable: true),
                     createdBy = table.Column<string>(maxLength: 120, nullable: true),
                     updatedAt = table.Column<DateTime>(nullable: true),
@@ -1767,6 +1891,7 @@ namespace LostAndFound.Migrations
                     gDTypeId = table.Column<int>(nullable: true),
                     documentTypeId = table.Column<int>(nullable: true),
                     documentDescription = table.Column<string>(type: "NVARCHAR(500)", nullable: true),
+                    gdDescription = table.Column<string>(type: "NVARCHAR(900)", nullable: true),
                     statusId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -1868,9 +1993,11 @@ namespace LostAndFound.Migrations
                     gDInformationId = table.Column<int>(nullable: true),
                     attachmentTypeId = table.Column<int>(nullable: true),
                     masterId = table.Column<int>(nullable: true),
+                    fileSubject = table.Column<string>(type: "NVARCHAR(500)", nullable: true),
                     fileName = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
                     fileType = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
-                    filePath = table.Column<string>(type: "NVARCHAR(250)", nullable: true)
+                    filePath = table.Column<string>(type: "NVARCHAR(250)", nullable: true),
+                    encodedImage = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1908,7 +2035,8 @@ namespace LostAndFound.Migrations
                     bloodGroup = table.Column<string>(type: "NVARCHAR(5)", nullable: true),
                     occupationId = table.Column<int>(nullable: true),
                     maritalStatusId = table.Column<int>(nullable: true),
-                    attachmentPath = table.Column<string>(type: "NVARCHAR(250)", nullable: true)
+                    attachmentPath = table.Column<string>(type: "NVARCHAR(250)", nullable: true),
+                    descriptionCircumcisionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1969,7 +2097,9 @@ namespace LostAndFound.Migrations
                     nationalIdentityTypeId = table.Column<int>(nullable: true),
                     identityNo = table.Column<string>(type: "NVARCHAR(50)", nullable: true),
                     numberTypeId = table.Column<int>(nullable: true),
-                    number = table.Column<string>(type: "NVARCHAR(100)", nullable: true)
+                    number = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
+                    dateOfDeath = table.Column<string>(type: "NVARCHAR(50)", nullable: true),
+                    deadbodyConditionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1978,6 +2108,12 @@ namespace LostAndFound.Migrations
                         name: "FK_ManInformation_AgePeriods_agePeriodId",
                         column: x => x.agePeriodId,
                         principalTable: "AgePeriods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ManInformation_DeadbodyConditions_deadbodyConditionId",
+                        column: x => x.deadbodyConditionId,
+                        principalTable: "DeadbodyConditions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -2025,15 +2161,25 @@ namespace LostAndFound.Migrations
                     updatedBy = table.Column<string>(maxLength: 250, nullable: true),
                     gDInformationId = table.Column<int>(nullable: true),
                     documentTypeId = table.Column<int>(nullable: true),
+                    documentCategoryBrandId = table.Column<int>(nullable: true),
+                    mobilePhoneTypeId = table.Column<int>(nullable: true),
+                    electronicsTypeId = table.Column<int>(nullable: true),
+                    fileDocumentTypeId = table.Column<int>(nullable: true),
+                    otherBrandId = table.Column<int>(nullable: true),
+                    operatingSystemTypeId = table.Column<int>(nullable: true),
+                    colorsId = table.Column<int>(nullable: true),
                     typeName = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
                     modelName = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
-                    brandName = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
-                    bodyType = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
-                    color = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
-                    structureType = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
-                    identificationMark = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
-                    quantity = table.Column<decimal>(nullable: true),
-                    price = table.Column<decimal>(nullable: true),
+                    serialNo = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    productNumber = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    currency = table.Column<string>(type: "NVARCHAR(50)", nullable: true),
+                    screenSize = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    battery = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    ram = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    rom = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
+                    macAddress = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
                     description = table.Column<string>(type: "NVARCHAR(350)", nullable: true),
                     attachment = table.Column<string>(type: "NVARCHAR(450)", nullable: true)
                 },
@@ -2041,15 +2187,57 @@ namespace LostAndFound.Migrations
                 {
                     table.PrimaryKey("PK_OtherDocumentDetails", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_OtherDocumentDetails_Colors_colorsId",
+                        column: x => x.colorsId,
+                        principalTable: "Colors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OtherDocumentDetails_DocumentCategoryBrands_documentCategoryBrandId",
+                        column: x => x.documentCategoryBrandId,
+                        principalTable: "DocumentCategoryBrands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_OtherDocumentDetails_DocumentTypes_documentTypeId",
                         column: x => x.documentTypeId,
                         principalTable: "DocumentTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_OtherDocumentDetails_ElectronicsTypes_electronicsTypeId",
+                        column: x => x.electronicsTypeId,
+                        principalTable: "ElectronicsTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OtherDocumentDetails_FileDocumentTypes_fileDocumentTypeId",
+                        column: x => x.fileDocumentTypeId,
+                        principalTable: "FileDocumentTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_OtherDocumentDetails_GDInformation_gDInformationId",
                         column: x => x.gDInformationId,
                         principalTable: "GDInformation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OtherDocumentDetails_MobilePhoneTypes_mobilePhoneTypeId",
+                        column: x => x.mobilePhoneTypeId,
+                        principalTable: "MobilePhoneTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OtherDocumentDetails_OperatingSystemTypes_operatingSystemTypeId",
+                        column: x => x.operatingSystemTypeId,
+                        principalTable: "OperatingSystemTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OtherDocumentDetails_OtherBrands_otherBrandId",
+                        column: x => x.otherBrandId,
+                        principalTable: "OtherBrands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -2112,7 +2300,8 @@ namespace LostAndFound.Migrations
                     engineNo = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
                     chasisNo = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
                     ccNo = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
-                    vehicleModelNo = table.Column<string>(type: "NVARCHAR(100)", nullable: true)
+                    vehicleModelNo = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
+                    vehicleDescription = table.Column<string>(type: "NVARCHAR(900)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2153,6 +2342,7 @@ namespace LostAndFound.Migrations
                     districtId = table.Column<int>(nullable: true),
                     thanaId = table.Column<int>(nullable: true),
                     postOfficeId = table.Column<int>(nullable: true),
+                    village = table.Column<string>(type: "NVARCHAR(200)", nullable: true),
                     placeDetails = table.Column<string>(type: "NVARCHAR(150)", nullable: true),
                     lafDate = table.Column<DateTime>(nullable: true),
                     lafTime = table.Column<string>(type: "NVARCHAR(50)", nullable: true)
@@ -2245,7 +2435,7 @@ namespace LostAndFound.Migrations
                     roadNumber = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
                     addressDetails = table.Column<string>(type: "NVARCHAR(250)", nullable: true),
                     oneLineAddress = table.Column<string>(type: "NVARCHAR(200)", nullable: true),
-                    type = table.Column<string>(type: "NVARCHAR(50)", nullable: false)
+                    type = table.Column<string>(type: "NVARCHAR(50)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2331,6 +2521,8 @@ namespace LostAndFound.Migrations
                     inTheBodyColorId = table.Column<int>(nullable: true),
                     inTheHeadId = table.Column<int>(nullable: true),
                     inTheHeadColorId = table.Column<int>(nullable: true),
+                    inTheEyeId = table.Column<int>(nullable: true),
+                    inTheEyeColorId = table.Column<int>(nullable: true),
                     inTheLegsId = table.Column<int>(nullable: true),
                     inTheLegsColorId = table.Column<int>(nullable: true),
                     inTheThroatId = table.Column<int>(nullable: true),
@@ -2353,6 +2545,18 @@ namespace LostAndFound.Migrations
                         name: "FK_DressDescriptions_InTheBodies_inTheBodyId",
                         column: x => x.inTheBodyId,
                         principalTable: "InTheBodies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DressDescriptions_Colors_inTheEyeColorId",
+                        column: x => x.inTheEyeColorId,
+                        principalTable: "Colors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DressDescriptions_InTheEyes_inTheEyeId",
+                        column: x => x.inTheEyeId,
+                        principalTable: "InTheEyes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -2493,13 +2697,22 @@ namespace LostAndFound.Migrations
                     eyeTypeId = table.Column<int>(nullable: true),
                     faceShapeTypeId = table.Column<int>(nullable: true),
                     foreHeadTypeId = table.Column<int>(nullable: true),
+                    hairTypeId = table.Column<int>(nullable: true),
                     headTypeId = table.Column<int>(nullable: true),
                     moustacheTypeId = table.Column<int>(nullable: true),
                     mouthTypeId = table.Column<int>(nullable: true),
                     neckTypeId = table.Column<int>(nullable: true),
                     noseTypeId = table.Column<int>(nullable: true),
                     specialBodyConditionId = table.Column<int>(nullable: true),
-                    teethTypeId = table.Column<int>(nullable: true)
+                    teethTypeId = table.Column<int>(nullable: true),
+                    weight = table.Column<decimal>(nullable: true),
+                    heightFeet = table.Column<decimal>(nullable: true),
+                    heightInch = table.Column<decimal>(nullable: true),
+                    specialBirthMarkTypeId = table.Column<int>(nullable: true),
+                    specialBirthMarkBodyPartId = table.Column<int>(nullable: true),
+                    specialBirthMarkBodyPartPositionId = table.Column<int>(nullable: true),
+                    visibleTatto = table.Column<string>(type: "NVARCHAR(200)", nullable: true),
+                    otherIdentityfyMark = table.Column<string>(type: "NVARCHAR(200)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2553,6 +2766,12 @@ namespace LostAndFound.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_PhysicalDescriptions_HairTypes_hairTypeId",
+                        column: x => x.hairTypeId,
+                        principalTable: "HairTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_PhysicalDescriptions_HeadTypes_headTypeId",
                         column: x => x.headTypeId,
                         principalTable: "HeadTypes",
@@ -2589,6 +2808,24 @@ namespace LostAndFound.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_PhysicalDescriptions_SpecialBirthMarkBodyParts_specialBirthMarkBodyPartId",
+                        column: x => x.specialBirthMarkBodyPartId,
+                        principalTable: "SpecialBirthMarkBodyParts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PhysicalDescriptions_SpecialBirthMarkBodyPartPositions_specialBirthMarkBodyPartPositionId",
+                        column: x => x.specialBirthMarkBodyPartPositionId,
+                        principalTable: "SpecialBirthMarkBodyPartPositions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PhysicalDescriptions_SpecialBirthMarkTypes_specialBirthMarkTypeId",
+                        column: x => x.specialBirthMarkTypeId,
+                        principalTable: "SpecialBirthMarkTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_PhysicalDescriptions_SpecialBodyConditions_specialBodyConditionId",
                         column: x => x.specialBodyConditionId,
                         principalTable: "SpecialBodyConditions",
@@ -2598,6 +2835,85 @@ namespace LostAndFound.Migrations
                         name: "FK_PhysicalDescriptions_TeethTypes_teethTypeId",
                         column: x => x.teethTypeId,
                         principalTable: "TeethTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    isDelete = table.Column<int>(nullable: true),
+                    createdAt = table.Column<DateTime>(nullable: true),
+                    updatedAt = table.Column<DateTime>(nullable: true),
+                    createdBy = table.Column<string>(maxLength: 250, nullable: true),
+                    updatedBy = table.Column<string>(maxLength: 250, nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    vehicleId = table.Column<int>(nullable: true),
+                    attachmentId = table.Column<int>(nullable: true),
+                    comment = table.Column<string>(nullable: true),
+                    statusId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Comments_AttachmentInformation_attachmentId",
+                        column: x => x.attachmentId,
+                        principalTable: "AttachmentInformation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Comments_VehicleInformation_vehicleId",
+                        column: x => x.vehicleId,
+                        principalTable: "VehicleInformation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Likes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    isDelete = table.Column<int>(nullable: true),
+                    createdAt = table.Column<DateTime>(nullable: true),
+                    updatedAt = table.Column<DateTime>(nullable: true),
+                    createdBy = table.Column<string>(maxLength: 250, nullable: true),
+                    updatedBy = table.Column<string>(maxLength: 250, nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    vehicleId = table.Column<int>(nullable: true),
+                    attachmentId = table.Column<int>(nullable: true),
+                    statusId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Likes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Likes_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Likes_AttachmentInformation_attachmentId",
+                        column: x => x.attachmentId,
+                        principalTable: "AttachmentInformation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Likes_VehicleInformation_vehicleId",
+                        column: x => x.vehicleId,
+                        principalTable: "VehicleInformation",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -2687,6 +3003,21 @@ namespace LostAndFound.Migrations
                 column: "gDInformationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_ApplicationUserId",
+                table: "Comments",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_attachmentId",
+                table: "Comments",
+                column: "attachmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_vehicleId",
+                table: "Comments",
+                column: "vehicleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Districts_divisionId",
                 table: "Districts",
                 column: "divisionId");
@@ -2735,6 +3066,16 @@ namespace LostAndFound.Migrations
                 name: "IX_DressDescriptions_inTheBodyId",
                 table: "DressDescriptions",
                 column: "inTheBodyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DressDescriptions_inTheEyeColorId",
+                table: "DressDescriptions",
+                column: "inTheEyeColorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DressDescriptions_inTheEyeId",
+                table: "DressDescriptions",
+                column: "inTheEyeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DressDescriptions_inTheHeadColorId",
@@ -2832,6 +3173,21 @@ namespace LostAndFound.Migrations
                 column: "religionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Likes_ApplicationUserId",
+                table: "Likes",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_attachmentId",
+                table: "Likes",
+                column: "attachmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_vehicleId",
+                table: "Likes",
+                column: "vehicleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ManHabitDetails_habitId",
                 table: "ManHabitDetails",
                 column: "habitId");
@@ -2845,6 +3201,11 @@ namespace LostAndFound.Migrations
                 name: "IX_ManInformation_agePeriodId",
                 table: "ManInformation",
                 column: "agePeriodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ManInformation_deadbodyConditionId",
+                table: "ManInformation",
+                column: "deadbodyConditionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ManInformation_gDInformationId",
@@ -2897,14 +3258,49 @@ namespace LostAndFound.Migrations
                 column: "moduleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OtherDocumentDetails_colorsId",
+                table: "OtherDocumentDetails",
+                column: "colorsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OtherDocumentDetails_documentCategoryBrandId",
+                table: "OtherDocumentDetails",
+                column: "documentCategoryBrandId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OtherDocumentDetails_documentTypeId",
                 table: "OtherDocumentDetails",
                 column: "documentTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OtherDocumentDetails_electronicsTypeId",
+                table: "OtherDocumentDetails",
+                column: "electronicsTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OtherDocumentDetails_fileDocumentTypeId",
+                table: "OtherDocumentDetails",
+                column: "fileDocumentTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OtherDocumentDetails_gDInformationId",
                 table: "OtherDocumentDetails",
                 column: "gDInformationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OtherDocumentDetails_mobilePhoneTypeId",
+                table: "OtherDocumentDetails",
+                column: "mobilePhoneTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OtherDocumentDetails_operatingSystemTypeId",
+                table: "OtherDocumentDetails",
+                column: "operatingSystemTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OtherDocumentDetails_otherBrandId",
+                table: "OtherDocumentDetails",
+                column: "otherBrandId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OtherPersonInformation_gDInformationId",
@@ -2957,6 +3353,11 @@ namespace LostAndFound.Migrations
                 column: "foreHeadTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PhysicalDescriptions_hairTypeId",
+                table: "PhysicalDescriptions",
+                column: "hairTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PhysicalDescriptions_headTypeId",
                 table: "PhysicalDescriptions",
                 column: "headTypeId");
@@ -2985,6 +3386,21 @@ namespace LostAndFound.Migrations
                 name: "IX_PhysicalDescriptions_noseTypeId",
                 table: "PhysicalDescriptions",
                 column: "noseTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PhysicalDescriptions_specialBirthMarkBodyPartId",
+                table: "PhysicalDescriptions",
+                column: "specialBirthMarkBodyPartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PhysicalDescriptions_specialBirthMarkBodyPartPositionId",
+                table: "PhysicalDescriptions",
+                column: "specialBirthMarkBodyPartPositionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PhysicalDescriptions_specialBirthMarkTypeId",
+                table: "PhysicalDescriptions",
+                column: "specialBirthMarkTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PhysicalDescriptions_specialBodyConditionId",
@@ -3097,19 +3513,16 @@ namespace LostAndFound.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AttachmentInformation");
+                name: "CareTypes");
 
             migrationBuilder.DropTable(
-                name: "CareTypes");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Complextions");
 
             migrationBuilder.DropTable(
                 name: "ComputerAccessoriesBrands");
-
-            migrationBuilder.DropTable(
-                name: "DeadbodyConditions");
 
             migrationBuilder.DropTable(
                 name: "DeathTypes");
@@ -3121,22 +3534,13 @@ namespace LostAndFound.Migrations
                 name: "DocumentCategoryAccessories");
 
             migrationBuilder.DropTable(
-                name: "DocumentCategoryBrands");
-
-            migrationBuilder.DropTable(
                 name: "DressDescriptions");
 
             migrationBuilder.DropTable(
-                name: "ElectronicsTypes");
-
-            migrationBuilder.DropTable(
-                name: "FileDocumentTypes");
-
-            migrationBuilder.DropTable(
-                name: "HairTypes");
-
-            migrationBuilder.DropTable(
                 name: "IdentificationAttachments");
+
+            migrationBuilder.DropTable(
+                name: "Likes");
 
             migrationBuilder.DropTable(
                 name: "LostAndFoundTypes");
@@ -3163,13 +3567,7 @@ namespace LostAndFound.Migrations
                 name: "MetropolitanAreas");
 
             migrationBuilder.DropTable(
-                name: "MobilePhoneTypes");
-
-            migrationBuilder.DropTable(
                 name: "ModuleAccessPages");
-
-            migrationBuilder.DropTable(
-                name: "OtherBrands");
 
             migrationBuilder.DropTable(
                 name: "OtherDocumentDetails");
@@ -3193,22 +3591,19 @@ namespace LostAndFound.Migrations
                 name: "SpaceAndTimes");
 
             migrationBuilder.DropTable(
+                name: "StatusInfos");
+
+            migrationBuilder.DropTable(
                 name: "UserAccessPages");
 
             migrationBuilder.DropTable(
                 name: "UserLogHistories");
 
             migrationBuilder.DropTable(
-                name: "VehicleInformation");
-
-            migrationBuilder.DropTable(
-                name: "AttachmentTypes");
-
-            migrationBuilder.DropTable(
-                name: "DocumentCategories");
-
-            migrationBuilder.DropTable(
                 name: "InTheBodies");
+
+            migrationBuilder.DropTable(
+                name: "InTheEyes");
 
             migrationBuilder.DropTable(
                 name: "InTheHeads");
@@ -3226,10 +3621,34 @@ namespace LostAndFound.Migrations
                 name: "IndentifyInfos");
 
             migrationBuilder.DropTable(
+                name: "AttachmentInformation");
+
+            migrationBuilder.DropTable(
+                name: "VehicleInformation");
+
+            migrationBuilder.DropTable(
                 name: "Habits");
 
             migrationBuilder.DropTable(
                 name: "Speeches");
+
+            migrationBuilder.DropTable(
+                name: "DocumentCategoryBrands");
+
+            migrationBuilder.DropTable(
+                name: "ElectronicsTypes");
+
+            migrationBuilder.DropTable(
+                name: "FileDocumentTypes");
+
+            migrationBuilder.DropTable(
+                name: "MobilePhoneTypes");
+
+            migrationBuilder.DropTable(
+                name: "OperatingSystemTypes");
+
+            migrationBuilder.DropTable(
+                name: "OtherBrands");
 
             migrationBuilder.DropTable(
                 name: "BeardTypes");
@@ -3256,6 +3675,9 @@ namespace LostAndFound.Migrations
                 name: "ForeHeadTypes");
 
             migrationBuilder.DropTable(
+                name: "HairTypes");
+
+            migrationBuilder.DropTable(
                 name: "HeadTypes");
 
             migrationBuilder.DropTable(
@@ -3272,6 +3694,15 @@ namespace LostAndFound.Migrations
 
             migrationBuilder.DropTable(
                 name: "NoseTypes");
+
+            migrationBuilder.DropTable(
+                name: "SpecialBirthMarkBodyParts");
+
+            migrationBuilder.DropTable(
+                name: "SpecialBirthMarkBodyPartPositions");
+
+            migrationBuilder.DropTable(
+                name: "SpecialBirthMarkTypes");
 
             migrationBuilder.DropTable(
                 name: "SpecialBodyConditions");
@@ -3292,9 +3723,6 @@ namespace LostAndFound.Migrations
                 name: "Navbars");
 
             migrationBuilder.DropTable(
-                name: "VehicleModels");
-
-            migrationBuilder.DropTable(
                 name: "Colors");
 
             migrationBuilder.DropTable(
@@ -3307,7 +3735,19 @@ namespace LostAndFound.Migrations
                 name: "Religions");
 
             migrationBuilder.DropTable(
+                name: "AttachmentTypes");
+
+            migrationBuilder.DropTable(
+                name: "VehicleModels");
+
+            migrationBuilder.DropTable(
+                name: "DocumentCategories");
+
+            migrationBuilder.DropTable(
                 name: "AgePeriods");
+
+            migrationBuilder.DropTable(
+                name: "DeadbodyConditions");
 
             migrationBuilder.DropTable(
                 name: "GDInformation");

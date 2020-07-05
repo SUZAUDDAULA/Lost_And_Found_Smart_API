@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LostAndFound.Migrations
 {
     [DbContext(typeof(LAFDbContext))]
-    [Migration("20200624164732_Like and Comment Add")]
-    partial class LikeandCommentAdd
+    [Migration("20200704114419_Common migration")]
+    partial class Commonmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,8 +44,7 @@ namespace LostAndFound.Migrations
                     b.Property<string>("FullName")
                         .HasMaxLength(100);
 
-                    b.Property<string>("ImagePath")
-                        .HasMaxLength(300);
+                    b.Property<string>("ImagePath");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -90,6 +89,9 @@ namespace LostAndFound.Migrations
 
                     b.Property<string>("updatedBy")
                         .HasMaxLength(120);
+
+                    b.Property<string>("userFrom")
+                        .HasMaxLength(50);
 
                     b.Property<int?>("userTypeId");
 
