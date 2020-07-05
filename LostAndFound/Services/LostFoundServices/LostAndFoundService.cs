@@ -722,7 +722,8 @@ namespace LostAndFound.Services.LostFoundServices
         {
             if (likes.Id != 0)
             {
-                _context.Likes.Update(likes);
+                var LikeInfo = _context.Likes.Where(x => x.ApplicationUserId == likes.ApplicationUserId && x.vehicleId == likes.vehicleId).FirstOrDefaultAsync();
+                _context.Entry(LikeInfo).State = EntityState.Modified;
 
                 await _context.SaveChangesAsync();
 

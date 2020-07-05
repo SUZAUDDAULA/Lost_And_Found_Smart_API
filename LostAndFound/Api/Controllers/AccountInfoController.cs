@@ -110,6 +110,41 @@ namespace LostAndFound.Api.Controllers
                         user.createdAt = DateTime.Now;
                     }
                 }
+                if (model.userFrom == "facebook")
+                {
+                    var gUser = await _userManager.FindByNameAsync(model.Email);
+                    if (gUser != null && (await _userManager.CheckPasswordAsync(gUser, model.Password)))
+                    {
+                        var roles = await _userManager.GetRolesAsync(gUser);
+                        var response = new
+                        {
+                            auth_token = await _jwtFactory.GenerateToken(gUser.UserName, gUser.Id, roles)
+                        };
+                        var gjwt = JsonConvert.SerializeObject(response);
+                        var gobj = new ReturnObject
+                        {
+                            jwt = gjwt,
+                            userInfo = gUser
+                        };
+                        return new OkObjectResult(gobj);
+                    }
+                    else
+                    {
+                        user.UserName = model.UserName;
+                        user.PhoneNumber = model.PhoneNumber;
+                        user.Email = model.Email;
+                        user.userTypeId = 3;
+                        user.FullName = model.FullName;
+                        user.ImagePath = model.imagePath;
+                        user.userFrom = model.userFrom;
+                        user.AddressType = model.AddressType;
+                        user.Citizenship = model.Citizenship;
+                        user.NationalIdentityType = model.NationalIdentityType;
+                        user.isVarified = 1;
+                        user.otpCode = otpCode.ToString();
+                        user.createdAt = DateTime.Now;
+                    }
+                }
                 else if (model.userFrom == "mobile")
                 {
                     
