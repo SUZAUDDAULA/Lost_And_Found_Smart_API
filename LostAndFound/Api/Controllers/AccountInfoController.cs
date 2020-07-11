@@ -147,7 +147,13 @@ namespace LostAndFound.Api.Controllers
                 }
                 else if (model.userFrom == "mobile")
                 {
-                    
+                    var gUser = await _userManager.FindByNameAsync(model.UserName);
+
+                    if(gUser != null)
+                    {
+                        return new OkObjectResult("userExists");
+                    }
+
                     string imagePath = string.Empty;
                     if (model.formFile != null)
                     {
